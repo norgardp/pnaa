@@ -88,6 +88,28 @@ BEGIN_MESSAGE_MAP(CpnaaDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_EN_KILLFOCUS(IDC_EDIT_ANALYST, &CpnaaDlg::OnEnKillfocusEditAnalyst)
+	ON_EN_KILLFOCUS(IDC_EDIT_CUSTOMER, &CpnaaDlg::OnEnKillfocusEditCustomer)
+	ON_EN_KILLFOCUS(IDC_EDIT_SAMPLEMASS, &CpnaaDlg::OnEnKillfocusEditSamplemass)
+	ON_EN_KILLFOCUS(IDC_EDIT_NEUTRONTHERMAL, &CpnaaDlg::OnEnKillfocusEditNeutronthermal)
+	ON_EN_KILLFOCUS(IDC_EDIT_NEUTRONRATIO, &CpnaaDlg::OnEnKillfocusEditNeutronratio)
+	ON_EN_KILLFOCUS(IDC_EDIT_NEUTRONFAST, &CpnaaDlg::OnEnKillfocusEditNeutronfast)
+	ON_CBN_SELCHANGE(IDC_COMBO_MASSUNIT, &CpnaaDlg::OnCbnSelchangeComboMassunit)
+	ON_CBN_EDITCHANGE(IDC_COMBO_MASSUNIT, &CpnaaDlg::OnCbnEditchangeComboMassunit)
+	ON_CBN_SELCHANGE(IDC_COMBO_SAMPLEMATERIAL, &CpnaaDlg::OnCbnSelchangeComboSamplematerial)
+	ON_CBN_EDITCHANGE(IDC_COMBO_SAMPLEMATERIAL, &CpnaaDlg::OnCbnEditchangeComboSamplematerial)
+	ON_CBN_SELCHANGE(IDC_COMBO_SAMPLEFORM, &CpnaaDlg::OnCbnSelchangeComboSampleform)
+	ON_CBN_EDITCHANGE(IDC_COMBO_SAMPLEFORM, &CpnaaDlg::OnCbnEditchangeComboSampleform)
+	ON_CBN_SELCHANGE(IDC_COMBO_SAMPLETREATMENT, &CpnaaDlg::OnCbnSelchangeComboSampletreatment)
+	ON_CBN_EDITCHANGE(IDC_COMBO_SAMPLETREATMENT, &CpnaaDlg::OnCbnEditchangeComboSampletreatment)
+	ON_CBN_SELCHANGE(IDC_COMBO_COUNTTYPE, &CpnaaDlg::OnCbnSelchangeComboCounttype)
+	ON_CBN_EDITCHANGE(IDC_COMBO_COUNTTYPE, &CpnaaDlg::OnCbnEditchangeComboCounttype)
+	ON_CBN_SELCHANGE(IDC_COMBO_SHORTDETECTOR, &CpnaaDlg::OnCbnSelchangeComboShortdetector)
+	ON_CBN_EDITCHANGE(IDC_COMBO_SHORTDETECTOR, &CpnaaDlg::OnCbnEditchangeComboShortdetector)
+	ON_CBN_SELCHANGE(IDC_COMBO_LONGDETECTOR, &CpnaaDlg::OnCbnSelchangeComboLongdetector)
+	ON_CBN_EDITCHANGE(IDC_COMBO_LONGDETECTOR, &CpnaaDlg::OnCbnEditchangeComboLongdetector)
+	ON_CBN_SELCHANGE(IDC_COMBO_REPORTUNITS, &CpnaaDlg::OnCbnSelchangeComboReportunits)
+	ON_CBN_EDITCHANGE(IDC_COMBO_REPORTUNITS, &CpnaaDlg::OnCbnEditchangeComboReportunits)
 END_MESSAGE_MAP()
 
 
@@ -176,3 +198,136 @@ HCURSOR CpnaaDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CpnaaDlg::OnEnKillfocusEditAnalyst()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+
+void CpnaaDlg::OnEnKillfocusEditCustomer()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnEnKillfocusEditSamplemass()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnEnKillfocusEditNeutronthermal()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnEnKillfocusEditNeutronratio()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnEnKillfocusEditNeutronfast()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnSelchangeComboMassunit()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnEditchangeComboMassunit()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnSelchangeComboSamplematerial()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnEditchangeComboSamplematerial()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnSelchangeComboSampleform()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnEditchangeComboSampleform()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnSelchangeComboSampletreatment()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnEditchangeComboSampletreatment()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnSelchangeComboCounttype()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnEditchangeComboCounttype()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnSelchangeComboShortdetector()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnEditchangeComboShortdetector()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnSelchangeComboLongdetector()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnEditchangeComboLongdetector()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnSelchangeComboReportunits()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnCbnEditchangeComboReportunits()
+{
+	// TODO: Add your control notification handler code here
+}

@@ -62,4 +62,27 @@ private:
 	CEdit EditBox_SampleMass;
 	CEdit EditBox_ShortCountBackground;
 
+public:
+	afx_msg void OnEnKillfocusEditAnalyst();
+	afx_msg void OnEnKillfocusEditCustomer();
+	afx_msg void OnEnKillfocusEditSamplemass();
+	afx_msg void OnEnKillfocusEditNeutronthermal();
+	afx_msg void OnEnKillfocusEditNeutronratio();
+	afx_msg void OnEnKillfocusEditNeutronfast();
+	afx_msg void OnCbnSelchangeComboMassunit();
+	afx_msg void OnCbnEditchangeComboMassunit();
+	afx_msg void OnCbnSelchangeComboSamplematerial();
+	afx_msg void OnCbnEditchangeComboSamplematerial();
+	afx_msg void OnCbnSelchangeComboSampleform();
+	afx_msg void OnCbnEditchangeComboSampleform();
+	afx_msg void OnCbnSelchangeComboSampletreatment();
+	afx_msg void OnCbnEditchangeComboSampletreatment();
+	afx_msg void OnCbnSelchangeComboCounttype();
+	afx_msg void OnCbnEditchangeComboCounttype();
+	afx_msg void OnCbnSelchangeComboShortdetector();
+	afx_msg void OnCbnEditchangeComboShortdetector();
+	afx_msg void OnCbnSelchangeComboLongdetector();
+	afx_msg void OnCbnEditchangeComboLongdetector();
+	afx_msg void OnCbnSelchangeComboReportunits();
+	afx_msg void OnCbnEditchangeComboReportunits();
 };
