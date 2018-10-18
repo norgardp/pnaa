@@ -7,6 +7,8 @@
 #include "afxdtctl.h"
 
 
+#include "ProgramDefaults.h"
+
 // CpnaaDlg dialog
 class CpnaaDlg : public CDialogEx
 {
@@ -59,4 +61,5 @@ private:
 	CEdit EditBox_ThermalNeutronFlux;
 	CEdit EditBox_SampleMass;
 	CEdit EditBox_ShortCountBackground;
+
 };
