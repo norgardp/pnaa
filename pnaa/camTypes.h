@@ -8,10 +8,10 @@ namespace camType
 	{
 		enum class MassUnit
 		{
-			g = 2000,
-			mg,
-			ug,
-			ng,
+			g = 2000,		// gram
+			mg,				// milligram
+			ug,				// microgram
+			ng,				// nanogram
 			other
 		};
 
@@ -59,6 +59,19 @@ namespace camType
 			rear_2,
 			rear_3,
 			rear_4,
+			other
+		};
+	}
+
+	namespace OutputProperty
+	{
+		enum class ReportUnits
+		{
+			pph = 2600,		// parts per hundred
+			ppt,			//           thousand
+			ppm,			//           million
+			ppb,			//           billion
+			ppmb,			//           trillion
 			other
 		};
 	}
