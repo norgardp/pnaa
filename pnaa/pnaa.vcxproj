@@ -189,6 +189,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camTypes.h" />
     <ClInclude Include="pnaa.h" />
     <ClInclude Include="pnaaDlg.h" />
     <ClInclude Include="Resource.h" />
