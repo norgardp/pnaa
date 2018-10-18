@@ -58,6 +58,30 @@ CpnaaDlg::CpnaaDlg(CWnd* pParent /*=NULL*/)
 void CpnaaDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_LIST_ANALYSISFILE, ListBox_AnalysisFiles);
+	DDX_Control(pDX, IDC_LIST_DATAFILES, ListBox_DataFiles);
+	DDX_Control(pDX, IDC_LIST_ELEMENTFILE, ListBox_ElementLibraries);
+	DDX_Control(pDX, IDC_LIST_NUCLIDEFILE, ListBox_NulcideLibraries);
+	DDX_Control(pDX, IDC_LIST_IRRADIATIONS, ListBox_Irradiations);
+	DDX_Control(pDX, IDC_COMBO_COUNTTYPE, ComboBox_CountType);
+	DDX_Control(pDX, IDC_COMBO_LONGDETECTOR, ComboBox_LongCountDetector);
+	DDX_Control(pDX, IDC_COMBO_MASSUNIT, ComboBox_SampleMassUnit);
+	DDX_Control(pDX, IDC_COMBO_REPORTUNITS, ComboBox_OutputReportUnit);
+	DDX_Control(pDX, IDC_COMBO_SAMPLEFORM, ComboBox_SampleForm);
+	DDX_Control(pDX, IDC_COMBO_SAMPLEMATERIAL, ComboBox_SampleMaterial);
+	DDX_Control(pDX, IDC_COMBO_SAMPLETREATMENT, ComboBox_SampleTreatment);
+	DDX_Control(pDX, IDC_COMBO_SHORTDETECTOR, ComboBox_ShortCountDetector);
+	DDX_Control(pDX, IDC_DATETIMEPICKER_DURATION, DateTime_IrradiationDuration);
+	DDX_Control(pDX, IDC_DATETIMEPICKER_STARTDATE, DateTime_IrradiationStartDate);
+	DDX_Control(pDX, IDC_DATETIMEPICKER_STARTTIME, DateTime_IrradiationStartTime);
+	DDX_Control(pDX, IDC_EDIT_ANALYST, EditBox_Analyst);
+	DDX_Control(pDX, IDC_EDIT_CUSTOMER, EditBox_Customer);
+	DDX_Control(pDX, IDC_EDIT_LONG_BACKGND, EdtiBox_LongCountBackground);
+	DDX_Control(pDX, IDC_EDIT_NEUTRONFAST, EditBox_FastNeutronFlux);
+	DDX_Control(pDX, IDC_EDIT_NEUTRONRATIO, EditBox_NeutronFluxRatio);
+	DDX_Control(pDX, IDC_EDIT_NEUTRONTHERMAL, EditBox_ThermalNeutronFlux);
+	DDX_Control(pDX, IDC_EDIT_SAMPLEMASS, EditBox_SampleMass);
+	DDX_Control(pDX, IDC_EDIT_SHORT_BACKGND, EditBox_ShortCountBackground);
 }
 
 BEGIN_MESSAGE_MAP(CpnaaDlg, CDialogEx)
