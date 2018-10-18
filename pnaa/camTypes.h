@@ -1,5 +1,6 @@
 #pragma once
 
+// Namespaced enum-classes to better manage property selections.
 
 namespace camType
 {
