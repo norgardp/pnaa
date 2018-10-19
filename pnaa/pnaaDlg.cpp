@@ -401,3 +401,119 @@ void CpnaaDlg::OnBnClickedButtonAnalyze()
 {
 	// TODO: Add your control notification handler code here
 }
+
+
+// Generic handling function to load default extension and file filter info. Calls
+// a separate function to return a vector of CStrings containing all of the file
+// names selected.
+std::vector<CString> CpnaaDlg::ReturnUserSelectedFilename(const camType::FileType file_type)
+{
+	camType::FileSearchParams params = ReturnFilenameSearchParams(file_type);
+	std::vector<CString> results;
+
+	if (params.directory == genie_defaults::empty_tchar_string)
+	{
+		// bad file_type supplied to the open-file routine
+		// log error to error file
+	}
+	else
+	{
+		results = ReturnVectorFileListing(params);
+	}
+
+	return std::vector<CString>();
+}
+
+
+std::vector<CString> CpnaaDlg::ReturnVectorFileListing(const camType::FileSearchParams params)
+{
+	std::vector<CString> result;
+	CString path;
+
+	// Store previous directory in case the dialog fails
+	TCHAR prev_directory[genie_defaults::MAXIMUM_PATH];
+	::GetCurrentDirectory(genie_defaults::MAXIMUM_PATH, prev_directory);
+
+	::SetCurrentDirectory(params.directory);
+	CFileDialog file_dialog(TRUE, params.extension, NULL,
+		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT,
+		params.filter, NULL, 0, TRUE);
+
+	if (file_dialog.DoModal())
+	{
+		// Stupid Microsoft; the pathnames are stored as a single "string" of characters
+		// separated by \0. No function appears to return a count.
+		POSITION pos(file_dialog.GetStartPosition());
+		while (pos)
+		{
+			path = file_dialog.GetNextPathName(pos);
+			result.push_back(path);
+		}
+	}
+	else
+	{
+		// Dialog failed or was canceled; restore previous current directory
+		::SetCurrentDirectory(prev_directory);
+	}
+
+	return result;
+}
+
+
+camType::FileSearchParams CpnaaDlg::ReturnFilenameSearchParams(const camType::FileType file_type)
+{
+	camType::FileSearchParams search_params;
+
+	switch (file_type)
+	{
+	case camType::FileType::analysis_sequence:
+		search_params.directory = genie_defaults::directory_control;
+		search_params.extension = genie_defaults::extension_analysisseq;
+		search_params.filter = genie_defaults::filter_analysisseq;
+		break;
+
+	case camType::FileType::background:
+		search_params.directory = genie_defaults::directory_data;
+		search_params.extension = genie_defaults::extension_data;
+		search_params.filter = genie_defaults::filter_data;
+		break;
+
+	case camType::FileType::data:
+		search_params.directory = genie_defaults::directory_data;
+		search_params.extension = genie_defaults::extension_data;
+		search_params.filter = genie_defaults::filter_data;
+		break;
+
+	case camType::FileType::library_element:
+		search_params.directory = genie_defaults::directory_library;
+		search_params.extension = genie_defaults::extension_elementlib;
+		search_params.filter = genie_defaults::filter_elementlib;
+		break;
+
+	case camType::FileType::library_nuclide:
+		search_params.directory = genie_defaults::directory_library;
+		search_params.extension = genie_defaults::extension_nuclidelib;
+		search_params.filter = genie_defaults::filter_nuclidelib;
+		break;
+
+	case camType::FileType::report:
+		search_params.directory = genie_defaults::directory_report;
+		search_params.extension = genie_defaults::extension_report;
+		search_params.filter = genie_defaults::filter_report;
+		break;
+
+	case camType::FileType::report_template:
+		search_params.directory = genie_defaults::directory_control;
+		search_params.extension = genie_defaults::extension_reporttemplt;
+		search_params.filter = genie_defaults::filter_reporttemplt;
+		break;
+
+	case camType::FileType::other:
+	default:
+		search_params.directory = genie_defaults::empty_tchar_string;
+		search_params.extension = genie_defaults::empty_tchar_string;
+		search_params.filter = genie_defaults::empty_tchar_string;
+	}
+
+	return search_params;
+}

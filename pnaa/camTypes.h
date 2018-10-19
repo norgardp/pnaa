@@ -4,6 +4,24 @@
 
 namespace camType
 {
+	enum class FileType
+	{
+		data = 3000,
+		library_nuclide,
+		library_element,
+		report_template,
+		report,
+		analysis_sequence,
+		background,
+		other
+	};
+
+	struct FileSearchParams
+	{
+		TCHAR* directory;
+		TCHAR* extension;
+		TCHAR* filter;
+	};
 
 	namespace SampleProperty
 	{

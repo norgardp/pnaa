@@ -6,8 +6,12 @@
 #include "afxwin.h"
 #include "afxdtctl.h"
 
+// Standard libaries
+#include <vector>
 
+// Local includes
 #include "ProgramDefaults.h"
+#include "camTypes.h"
 
 // CpnaaDlg dialog
 class CpnaaDlg : public CDialogEx
@@ -34,35 +38,6 @@ protected:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
-	DECLARE_MESSAGE_MAP()
-
-private:
-	CListBox ListBox_AnalysisFiles;
-	CListBox ListBox_DataFiles;
-	CListBox ListBox_ElementLibraries;
-	CListBox ListBox_NulcideLibraries;
-	CListBox ListBox_Irradiations;
-	CComboBox ComboBox_CountType;
-	CComboBox ComboBox_LongCountDetector;
-	CComboBox ComboBox_SampleMassUnit;
-	CComboBox ComboBox_OutputReportUnit;
-	CComboBox ComboBox_SampleForm;
-	CComboBox ComboBox_SampleMaterial;
-	CComboBox ComboBox_SampleTreatment;
-	CComboBox ComboBox_ShortCountDetector;
-	CDateTimeCtrl DateTime_IrradiationDuration;
-	CDateTimeCtrl DateTime_IrradiationStartDate;
-	CDateTimeCtrl DateTime_IrradiationStartTime;
-	CEdit EditBox_Analyst;
-	CEdit EditBox_Customer;
-	CEdit EdtiBox_LongCountBackground;
-	CEdit EditBox_FastNeutronFlux;
-	CEdit EditBox_NeutronFluxRatio;
-	CEdit EditBox_ThermalNeutronFlux;
-	CEdit EditBox_SampleMass;
-	CEdit EditBox_ShortCountBackground;
-
-public:
 	afx_msg void OnEnKillfocusEditAnalyst();
 	afx_msg void OnEnKillfocusEditCustomer();
 	afx_msg void OnEnKillfocusEditSamplemass();
@@ -95,4 +70,36 @@ public:
 	afx_msg void OnBnClickedButtonRemovedata();
 	afx_msg void OnBnClickedButtonRemovealldata();
 	afx_msg void OnBnClickedButtonAnalyze();
+	DECLARE_MESSAGE_MAP()
+
+private:
+	CListBox ListBox_AnalysisFiles;
+	CListBox ListBox_DataFiles;
+	CListBox ListBox_ElementLibraries;
+	CListBox ListBox_NulcideLibraries;
+	CListBox ListBox_Irradiations;
+	CComboBox ComboBox_CountType;
+	CComboBox ComboBox_LongCountDetector;
+	CComboBox ComboBox_SampleMassUnit;
+	CComboBox ComboBox_OutputReportUnit;
+	CComboBox ComboBox_SampleForm;
+	CComboBox ComboBox_SampleMaterial;
+	CComboBox ComboBox_SampleTreatment;
+	CComboBox ComboBox_ShortCountDetector;
+	CDateTimeCtrl DateTime_IrradiationDuration;
+	CDateTimeCtrl DateTime_IrradiationStartDate;
+	CDateTimeCtrl DateTime_IrradiationStartTime;
+	CEdit EditBox_Analyst;
+	CEdit EditBox_Customer;
+	CEdit EdtiBox_LongCountBackground;
+	CEdit EditBox_FastNeutronFlux;
+	CEdit EditBox_NeutronFluxRatio;
+	CEdit EditBox_ThermalNeutronFlux;
+	CEdit EditBox_SampleMass;
+	CEdit EditBox_ShortCountBackground;
+
+	// Generic handling function used to call a file-open dialog and return the selected string(s) in a vector container
+	std::vector<CString> ReturnUserSelectedFilename(const camType::FileType file_type);
+	camType::FileSearchParams ReturnFilenameSearchParams(const camType::FileType file_type);
+	std::vector<CString> ReturnVectorFileListing(const camType::FileSearchParams params);
 };
