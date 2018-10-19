@@ -110,6 +110,16 @@ BEGIN_MESSAGE_MAP(CpnaaDlg, CDialogEx)
 	ON_CBN_EDITCHANGE(IDC_COMBO_LONGDETECTOR, &CpnaaDlg::OnCbnEditchangeComboLongdetector)
 	ON_CBN_SELCHANGE(IDC_COMBO_REPORTUNITS, &CpnaaDlg::OnCbnSelchangeComboReportunits)
 	ON_CBN_EDITCHANGE(IDC_COMBO_REPORTUNITS, &CpnaaDlg::OnCbnEditchangeComboReportunits)
+	ON_BN_CLICKED(IDC_BUTTON_SHORTBACKGND, &CpnaaDlg::OnBnClickedButtonShortbackgnd)
+	ON_BN_CLICKED(IDC_BUTTON_LONGBACKGND, &CpnaaDlg::OnBnClickedButtonLongbackgnd)
+	ON_BN_CLICKED(IDC_BUTTON_APPENDIRRAD, &CpnaaDlg::OnBnClickedButtonAppendirrad)
+	ON_BN_CLICKED(IDC_BUTTON_INSERTIRRAD, &CpnaaDlg::OnBnClickedButtonInsertirrad)
+	ON_BN_CLICKED(IDC_BUTTON_REMOVEIRRAD, &CpnaaDlg::OnBnClickedButtonRemoveirrad)
+	ON_BN_CLICKED(IDC_BUTTON_REMOVEALLIRRAD, &CpnaaDlg::OnBnClickedButtonRemoveallirrad)
+	ON_BN_CLICKED(IDC_BUTTON_ADDDATA, &CpnaaDlg::OnBnClickedButtonAdddata)
+	ON_BN_CLICKED(IDC_BUTTON_REMOVEDATA, &CpnaaDlg::OnBnClickedButtonRemovedata)
+	ON_BN_CLICKED(IDC_BUTTON_REMOVEALLDATA, &CpnaaDlg::OnBnClickedButtonRemovealldata)
+	ON_BN_CLICKED(IDC_BUTTON_ANALYZE, &CpnaaDlg::OnBnClickedButtonAnalyze)
 END_MESSAGE_MAP()
 
 
@@ -328,6 +338,66 @@ void CpnaaDlg::OnCbnSelchangeComboReportunits()
 
 
 void CpnaaDlg::OnCbnEditchangeComboReportunits()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnBnClickedButtonShortbackgnd()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnBnClickedButtonLongbackgnd()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnBnClickedButtonAppendirrad()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnBnClickedButtonInsertirrad()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnBnClickedButtonRemoveirrad()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnBnClickedButtonRemoveallirrad()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnBnClickedButtonAdddata()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnBnClickedButtonRemovedata()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnBnClickedButtonRemovealldata()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CpnaaDlg::OnBnClickedButtonAnalyze()
 {
 	// TODO: Add your control notification handler code here
 }

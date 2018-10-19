@@ -85,4 +85,14 @@ public:
 	afx_msg void OnCbnEditchangeComboLongdetector();
 	afx_msg void OnCbnSelchangeComboReportunits();
 	afx_msg void OnCbnEditchangeComboReportunits();
+	afx_msg void OnBnClickedButtonShortbackgnd();
+	afx_msg void OnBnClickedButtonLongbackgnd();
+	afx_msg void OnBnClickedButtonAppendirrad();
+	afx_msg void OnBnClickedButtonInsertirrad();
+	afx_msg void OnBnClickedButtonRemoveirrad();
+	afx_msg void OnBnClickedButtonRemoveallirrad();
+	afx_msg void OnBnClickedButtonAdddata();
+	afx_msg void OnBnClickedButtonRemovedata();
+	afx_msg void OnBnClickedButtonRemovealldata();
+	afx_msg void OnBnClickedButtonAnalyze();
 };
