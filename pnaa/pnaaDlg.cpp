@@ -444,19 +444,24 @@ std::vector<CString> CpnaaDlg::ReturnVectorDirectoryFileListing(const camType::F
 	{
 		// Log error
 	}
-
-	do
+	else
 	{
-		if (Find_Data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+		do
 		{
-			// found a directory; do nothing
-		}
-		else
-		{
-			result.push_back(Find_Data.cFileName);
-		}
+			if (Find_Data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+			{
+				// found a directory; do nothing
+			}
 
-	} while (FindNextFile(fdHandle, &Find_Data) != 0);
+			else
+			{
+				result.push_back(Find_Data.cFileName);
+			}
+
+		} while (FindNextFile(fdHandle, &Find_Data) != 0);
+	
+	}
+
 
 	return result;
 }
