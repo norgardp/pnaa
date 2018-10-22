@@ -99,7 +99,7 @@ private:
 	CEdit EditBox_ShortCountBackground;
 
 	// Generic handling function used to call a file-open dialog and return the selected string(s) in a vector container
-	std::vector<CString> ReturnUserSelectedFilename(const camType::FileType file_type);
-	camType::FileSearchParams ReturnFilenameSearchParams(const camType::FileType file_type);
-	std::vector<CString> ReturnVectorFileListing(const camType::FileSearchParams params);
+	std::vector<CString> ReturnFilteredFilename(const camType::FileType file_type);
+	camType::FileSearchParams ReturnFilenameFilteringParams(const camType::FileType file_type);
+	std::vector<CString> ReturnVectorDirectoryFileListing(const camType::FileSearchParams params);
 };

@@ -406,9 +406,9 @@ void CpnaaDlg::OnBnClickedButtonAnalyze()
 // Generic handling function to load default extension and file filter info. Calls
 // a separate function to return a vector of CStrings containing all of the file
 // names selected.
-std::vector<CString> CpnaaDlg::ReturnUserSelectedFilename(const camType::FileType file_type)
+std::vector<CString> CpnaaDlg::ReturnFilteredFilename(const camType::FileType file_type)
 {
-	camType::FileSearchParams params = ReturnFilenameSearchParams(file_type);
+	camType::FileSearchParams params = ReturnFilenameFilteringParams(file_type);
 	std::vector<CString> results;
 
 	if (params.directory == genie_defaults::empty_tchar_string)
@@ -418,14 +418,16 @@ std::vector<CString> CpnaaDlg::ReturnUserSelectedFilename(const camType::FileTyp
 	}
 	else
 	{
-		results = ReturnVectorFileListing(params);
+		results = ReturnVectorDirectoryFileListing(params);
 	}
 
-	return std::vector<CString>();
+	return results;
 }
 
 
-std::vector<CString> CpnaaDlg::ReturnVectorFileListing(const camType::FileSearchParams params)
+// Create a Windows OpenFile dialog, and if successful, return a vectorized
+// list of files in the directory.
+std::vector<CString> CpnaaDlg::ReturnVectorDirectoryFileListing(const camType::FileSearchParams params)
 {
 	std::vector<CString> result;
 	CString path;
@@ -442,7 +444,7 @@ std::vector<CString> CpnaaDlg::ReturnVectorFileListing(const camType::FileSearch
 	if (file_dialog.DoModal())
 	{
 		// Stupid Microsoft; the pathnames are stored as a single "string" of characters
-		// separated by \0. No function appears to return a count.
+		// separated by \0. Populate the output vector.
 		POSITION pos(file_dialog.GetStartPosition());
 		while (pos)
 		{
@@ -460,60 +462,60 @@ std::vector<CString> CpnaaDlg::ReturnVectorFileListing(const camType::FileSearch
 }
 
 
-camType::FileSearchParams CpnaaDlg::ReturnFilenameSearchParams(const camType::FileType file_type)
+camType::FileSearchParams CpnaaDlg::ReturnFilenameFilteringParams(const camType::FileType file_type)
 {
-	camType::FileSearchParams search_params;
+	camType::FileSearchParams filename_defaults;
 
 	switch (file_type)
 	{
 	case camType::FileType::analysis_sequence:
-		search_params.directory = genie_defaults::directory_control;
-		search_params.extension = genie_defaults::extension_analysisseq;
-		search_params.filter = genie_defaults::filter_analysisseq;
+		filename_defaults.directory = genie_defaults::directory_control;
+		filename_defaults.extension = genie_defaults::extension_analysisseq;
+		filename_defaults.filter = genie_defaults::filter_analysisseq;
 		break;
 
 	case camType::FileType::background:
-		search_params.directory = genie_defaults::directory_data;
-		search_params.extension = genie_defaults::extension_data;
-		search_params.filter = genie_defaults::filter_data;
+		filename_defaults.directory = genie_defaults::directory_data;
+		filename_defaults.extension = genie_defaults::extension_data;
+		filename_defaults.filter = genie_defaults::filter_data;
 		break;
 
 	case camType::FileType::data:
-		search_params.directory = genie_defaults::directory_data;
-		search_params.extension = genie_defaults::extension_data;
-		search_params.filter = genie_defaults::filter_data;
+		filename_defaults.directory = genie_defaults::directory_data;
+		filename_defaults.extension = genie_defaults::extension_data;
+		filename_defaults.filter = genie_defaults::filter_data;
 		break;
 
 	case camType::FileType::library_element:
-		search_params.directory = genie_defaults::directory_library;
-		search_params.extension = genie_defaults::extension_elementlib;
-		search_params.filter = genie_defaults::filter_elementlib;
+		filename_defaults.directory = genie_defaults::directory_library;
+		filename_defaults.extension = genie_defaults::extension_elementlib;
+		filename_defaults.filter = genie_defaults::filter_elementlib;
 		break;
 
 	case camType::FileType::library_nuclide:
-		search_params.directory = genie_defaults::directory_library;
-		search_params.extension = genie_defaults::extension_nuclidelib;
-		search_params.filter = genie_defaults::filter_nuclidelib;
+		filename_defaults.directory = genie_defaults::directory_library;
+		filename_defaults.extension = genie_defaults::extension_nuclidelib;
+		filename_defaults.filter = genie_defaults::filter_nuclidelib;
 		break;
 
 	case camType::FileType::report:
-		search_params.directory = genie_defaults::directory_report;
-		search_params.extension = genie_defaults::extension_report;
-		search_params.filter = genie_defaults::filter_report;
+		filename_defaults.directory = genie_defaults::directory_report;
+		filename_defaults.extension = genie_defaults::extension_report;
+		filename_defaults.filter = genie_defaults::filter_report;
 		break;
 
 	case camType::FileType::report_template:
-		search_params.directory = genie_defaults::directory_control;
-		search_params.extension = genie_defaults::extension_reporttemplt;
-		search_params.filter = genie_defaults::filter_reporttemplt;
+		filename_defaults.directory = genie_defaults::directory_control;
+		filename_defaults.extension = genie_defaults::extension_reporttemplt;
+		filename_defaults.filter = genie_defaults::filter_reporttemplt;
 		break;
 
 	case camType::FileType::other:
 	default:
-		search_params.directory = genie_defaults::empty_tchar_string;
-		search_params.extension = genie_defaults::empty_tchar_string;
-		search_params.filter = genie_defaults::empty_tchar_string;
+		filename_defaults.directory = genie_defaults::empty_tchar_string;
+		filename_defaults.extension = genie_defaults::empty_tchar_string;
+		filename_defaults.filter = genie_defaults::empty_tchar_string;
 	}
 
-	return search_params;
+	return filename_defaults;
 }
