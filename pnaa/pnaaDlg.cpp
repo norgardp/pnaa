@@ -156,6 +156,7 @@ BOOL CpnaaDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 	InitializeDirectoryLists();
+	InitializeComboBoxValues();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -426,8 +427,6 @@ std::vector<CString> CpnaaDlg::ReturnFilteredFilename(const camType::FileType fi
 }
 
 
-// Create a Windows OpenFile dialog, and if successful, return a vectorized
-// list of files in the directory.
 std::vector<CString> CpnaaDlg::ReturnVectorDirectoryFileListing(const camType::FileSearchParams params)
 {
 	WIN32_FIND_DATA Find_Data;
@@ -455,9 +454,7 @@ std::vector<CString> CpnaaDlg::ReturnVectorDirectoryFileListing(const camType::F
 			}
 
 		} while (FindNextFile(fdHandle, &Find_Data) != 0);
-	
 	}
-
 
 	return result;
 }
@@ -551,11 +548,91 @@ std::vector<CString> CpnaaDlg::PopulateListboxDirectoryListing(CListBox& list_bo
 }
 
 
-
 void CpnaaDlg::InitializeDirectoryLists()
 {
 	AnalysisListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_AnalysisFiles, camType::FileType::analysis_sequence);
 	NuclideLibListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_NulcideLibraries, camType::FileType::library_nuclide);
 	ElementLibListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_ElementLibraries, camType::FileType::library_element);
 	DatafileListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_DataFiles, camType::FileType::data);
+}
+
+
+void CpnaaDlg::InitializeComboBoxValues()
+{
+	CreateComboBoxValues(ComboBox_SampleMassUnit, camType::ComboType::mass_unit);
+	CreateComboBoxValues(ComboBox_SampleMaterial, camType::ComboType::sample_material);
+	CreateComboBoxValues(ComboBox_SampleForm, camType::ComboType::sample_form);
+	CreateComboBoxValues(ComboBox_SampleTreatment, camType::ComboType::measurement_treatment_type);
+	CreateComboBoxValues(ComboBox_CountType, camType::ComboType::measurement_count_type);
+	CreateComboBoxValues(ComboBox_ShortCountDetector, camType::ComboType::measurement_detector);
+	CreateComboBoxValues(ComboBox_LongCountDetector, camType::ComboType::measurement_detector);
+	CreateComboBoxValues(ComboBox_OutputReportUnit, camType::ComboType::output_report_units);
+}
+
+
+void CpnaaDlg::CreateComboBoxValues(CComboBox& combo_box, const camType::ComboType combo_type)
+{
+	switch (combo_type)
+	{
+	case camType::ComboType::mass_unit:
+		combo_box.AddString(_T("g"));
+		combo_box.AddString(_T("mg"));
+		combo_box.AddString(_T("ug"));
+		combo_box.AddString(_T("ng"));
+		combo_box.SetCurSel(1);
+		break;
+
+	case camType::ComboType::sample_material:
+		combo_box.AddString(_T("silicon"));
+		combo_box.AddString(_T("boron"));
+		combo_box.AddString(_T("quartz"));
+		combo_box.AddString(_T("graphite"));
+		combo_box.AddString(_T("other"));
+		combo_box.SetCurSel(0);
+		break;
+
+	case camType::ComboType::sample_form:
+		combo_box.AddString(_T("unspecified"));
+		combo_box.AddString(_T("rod"));
+		combo_box.AddString(_T("sheet"));
+		combo_box.AddString(_T("plate"));
+		combo_box.AddString(_T("cylinder"));
+		combo_box.AddString(_T("chunk"));
+		combo_box.AddString(_T("other"));
+		combo_box.SetCurSel(0);
+		break;
+
+	case camType::ComboType::measurement_treatment_type:
+		combo_box.AddString(_T("unspecified"));
+		combo_box.AddString(_T("unetched"));
+		combo_box.AddString(_T("etched"));
+		combo_box.SetCurSel(0);
+		break;
+
+	case camType::ComboType::measurement_count_type:
+		combo_box.AddString(_T("unspecified")); 
+		combo_box.AddString(_T("short count"));
+		combo_box.AddString(_T("long count"));
+		combo_box.AddString(_T("short and long counts"));
+		combo_box.SetCurSel(0);
+		break;
+
+	case camType::ComboType::measurement_detector:
+		combo_box.AddString(_T("unspecified"));
+		combo_box.AddString(_T("rear 1"));
+		combo_box.AddString(_T("rear 2"));
+		combo_box.AddString(_T("rear 3"));
+		combo_box.AddString(_T("rear 4"));
+		combo_box.SetCurSel(0);
+		break;
+
+	case camType::ComboType::output_report_units:
+		combo_box.AddString(_T("pph"));
+		combo_box.AddString(_T("ppt"));
+		combo_box.AddString(_T("ppm"));
+		combo_box.AddString(_T("ppb"));
+		combo_box.AddString(_T("ppmb"));
+		combo_box.SetCurSel(2);
+		break;
+	}
 }

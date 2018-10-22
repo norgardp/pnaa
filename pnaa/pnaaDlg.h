@@ -103,11 +103,15 @@ private:
 	std::vector<CString> ElementLibListboxDirectoryList;
 	std::vector<CString> DatafileListboxDirectoryList;
 
-	// Generic handling function used to call a file-open dialog and return the selected string(s) in a vector container
+	// Generic handling function used to return a directory listing into a vector
+	// container; also populates the associated ListBoxes on the dialog.
 	std::vector<CString> ReturnFilteredFilename(const camType::FileType file_type);
 	camType::FileSearchParams ReturnFilenameFilteringParams(const camType::FileType file_type);
 	std::vector<CString> ReturnVectorDirectoryFileListing(const camType::FileSearchParams params);
 	std::vector<CString> PopulateListboxDirectoryListing(CListBox& list_box, const camType::FileType param);
 	CString ReturnFilterSearchPathname(const camType::FileSearchParams search_param);
+
 	void InitializeDirectoryLists();
+	void InitializeComboBoxValues();
+	void CreateComboBoxValues(CComboBox& combo_box, const camType::ComboType combo_type);
 };

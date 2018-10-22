@@ -23,6 +23,20 @@ namespace camType
 		TCHAR* filter;
 	};
 
+
+	enum class ComboType
+	{
+		mass_unit = 3100,
+		sample_material,
+		sample_form,
+		measurement_treatment_type,
+		measurement_count_type,
+		measurement_detector,
+		output_report_units,
+		other
+	};
+
+
 	namespace SampleProperty
 	{
 		enum class MassUnit

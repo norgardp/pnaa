@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-
+#include <vector>
 
 namespace genie_defaults
 {
@@ -32,4 +32,5 @@ namespace genie_defaults
 	// Important constants
 	static constexpr size_t MAXIMUM_PATH = MAX_PATH;
 	static constexpr TCHAR* empty_tchar_string = _T('\0');
+
 }
