@@ -30,6 +30,6 @@ namespace genie_defaults
 	static constexpr TCHAR* filter_reporttemplt = _T("Report Template Files (*.tpl)|*.tpl|");
 
 	// Important constants
-	static constexpr size_t MAXIMUM_PATH = 250;
+	static constexpr size_t MAXIMUM_PATH = MAX_PATH;
 	static constexpr TCHAR* empty_tchar_string = _T('\0');
 }

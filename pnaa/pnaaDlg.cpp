@@ -155,6 +155,7 @@ BOOL CpnaaDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+	InitializeDirectoryLists();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -429,34 +430,33 @@ std::vector<CString> CpnaaDlg::ReturnFilteredFilename(const camType::FileType fi
 // list of files in the directory.
 std::vector<CString> CpnaaDlg::ReturnVectorDirectoryFileListing(const camType::FileSearchParams params)
 {
+	WIN32_FIND_DATA Find_Data;
+	HANDLE fdHandle{ INVALID_HANDLE_VALUE };
 	std::vector<CString> result;
-	CString path;
 
-	// Store previous directory in case the dialog fails
-	TCHAR prev_directory[genie_defaults::MAXIMUM_PATH];
-	::GetCurrentDirectory(genie_defaults::MAXIMUM_PATH, prev_directory);
+	CString directory{ params.directory };
+	CString extension{ params.extension };
+	CString path = directory + extension;
 
-	::SetCurrentDirectory(params.directory);
-	CFileDialog file_dialog(TRUE, params.extension, NULL,
-		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT,
-		params.filter, NULL, 0, TRUE);
-
-	if (file_dialog.DoModal())
+	fdHandle = FindFirstFile(path, &Find_Data);
+	
+	if (fdHandle == INVALID_HANDLE_VALUE)
 	{
-		// Stupid Microsoft; the pathnames are stored as a single "string" of characters
-		// separated by \0. Populate the output vector.
-		POSITION pos(file_dialog.GetStartPosition());
-		while (pos)
+		// Log error
+	}
+
+	do
+	{
+		if (Find_Data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			path = file_dialog.GetNextPathName(pos);
-			result.push_back(path);
+			// found a directory; do nothing
 		}
-	}
-	else
-	{
-		// Dialog failed or was canceled; restore previous current directory
-		::SetCurrentDirectory(prev_directory);
-	}
+		else
+		{
+			result.push_back(Find_Data.cFileName);
+		}
+
+	} while (FindNextFile(fdHandle, &Find_Data) != 0);
 
 	return result;
 }
@@ -518,4 +518,30 @@ camType::FileSearchParams CpnaaDlg::ReturnFilenameFilteringParams(const camType:
 	}
 
 	return filename_defaults;
+}
+
+
+std::vector<CString> CpnaaDlg::PopulateListboxDirectoryListing(CListBox& list_box, const camType::FileType param)
+{
+	// Receive the vector list of filenames
+	std::vector<CString> dir_listing{ ReturnFilteredFilename(param) };
+	
+	// Populate the UI listbox
+	list_box.ResetContent();
+	for (size_t i{ 0 }; i < dir_listing.size(); i++)
+	{
+		list_box.AddString(dir_listing.at(i));
+	}
+
+	return dir_listing;
+}
+
+
+
+void CpnaaDlg::InitializeDirectoryLists()
+{
+	AnalysisListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_AnalysisFiles, camType::FileType::analysis_sequence);
+	NuclideLibListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_NulcideLibraries, camType::FileType::library_nuclide);
+	ElementLibListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_ElementLibraries, camType::FileType::library_element);
+	DatafileListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_DataFiles, camType::FileType::data);
 }

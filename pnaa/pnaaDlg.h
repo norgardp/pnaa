@@ -98,8 +98,15 @@ private:
 	CEdit EditBox_SampleMass;
 	CEdit EditBox_ShortCountBackground;
 
+	std::vector<CString> AnalysisListboxDirectoryList;
+	std::vector<CString> NuclideLibListboxDirectoryList;
+	std::vector<CString> ElementLibListboxDirectoryList;
+	std::vector<CString> DatafileListboxDirectoryList;
+
 	// Generic handling function used to call a file-open dialog and return the selected string(s) in a vector container
 	std::vector<CString> ReturnFilteredFilename(const camType::FileType file_type);
 	camType::FileSearchParams ReturnFilenameFilteringParams(const camType::FileType file_type);
 	std::vector<CString> ReturnVectorDirectoryFileListing(const camType::FileSearchParams params);
+	std::vector<CString> PopulateListboxDirectoryListing(CListBox& list_box, const camType::FileType param);
+	void InitializeDirectoryLists();
 };
