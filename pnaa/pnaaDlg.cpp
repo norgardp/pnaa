@@ -434,12 +434,8 @@ std::vector<CString> CpnaaDlg::ReturnVectorDirectoryFileListing(const camType::F
 	HANDLE fdHandle{ INVALID_HANDLE_VALUE };
 	std::vector<CString> result;
 
-	CString directory{ params.directory };
-	CString extension{ params.extension };
-	CString path = directory + extension;
-
+	CString path = ReturnFilterSearchPathname(params);
 	fdHandle = FindFirstFile(path, &Find_Data);
-	
 	if (fdHandle == INVALID_HANDLE_VALUE)
 	{
 		// Log error
@@ -523,6 +519,19 @@ camType::FileSearchParams CpnaaDlg::ReturnFilenameFilteringParams(const camType:
 	}
 
 	return filename_defaults;
+}
+
+
+CString CpnaaDlg::ReturnFilterSearchPathname(const camType::FileSearchParams search_param)
+{
+	CString return_value;
+	if (search_param.directory != genie_defaults::empty_tchar_string)
+	{
+		CString directory{ search_param.directory };
+		CString extension{ search_param.extension };
+		return_value = directory + extension;
+	}
+	return return_value;
 }
 
 

@@ -108,5 +108,6 @@ private:
 	camType::FileSearchParams ReturnFilenameFilteringParams(const camType::FileType file_type);
 	std::vector<CString> ReturnVectorDirectoryFileListing(const camType::FileSearchParams params);
 	std::vector<CString> PopulateListboxDirectoryListing(CListBox& list_box, const camType::FileType param);
+	CString ReturnFilterSearchPathname(const camType::FileSearchParams search_param);
 	void InitializeDirectoryLists();
 };
