@@ -389,13 +389,20 @@ void CpnaaDlg::OnBnClickedButtonAdddata()
 
 void CpnaaDlg::OnBnClickedButtonRemovedata()
 {
-	// TODO: Add your control notification handler code here
+	int selected{ ListBox_DataFiles.GetCurSel() };
+	if (selected != LB_ERR)
+	{
+		// Do stuff
+		RemoveVectorItem(DatafileListboxDirectoryList, selected);
+		UpdateCListBoxContents(DatafileListboxDirectoryList, ListBox_DataFiles);
+	}
 }
 
 
 void CpnaaDlg::OnBnClickedButtonRemovealldata()
 {
-	// TODO: Add your control notification handler code here
+	RemoveAllVectorItems(DatafileListboxDirectoryList);
+	UpdateCListBoxContents(DatafileListboxDirectoryList, ListBox_DataFiles);
 }
 
 
