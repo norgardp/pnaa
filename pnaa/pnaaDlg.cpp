@@ -371,13 +371,20 @@ void CpnaaDlg::OnBnClickedButtonInsertirrad()
 
 void CpnaaDlg::OnBnClickedButtonRemoveirrad()
 {
-	// TODO: Add your control notification handler code here
+	int selected{ ListBox_Irradiations.GetCurSel() };
+	if (selected != LB_ERR)
+	{
+		// Do stuff
+		RemoveVectorItem(IrradiationList, selected);
+		UpdateCListBoxContents(IrradiationList, ListBox_Irradiations);
+	}
 }
 
 
 void CpnaaDlg::OnBnClickedButtonRemoveallirrad()
 {
-	// TODO: Add your control notification handler code here
+	RemoveAllVectorItems(IrradiationList);
+	UpdateCListBoxContents(IrradiationList, ListBox_Irradiations);
 }
 
 

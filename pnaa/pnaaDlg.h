@@ -98,6 +98,7 @@ private:
 	CEdit EditBox_SampleMass;
 	CEdit EditBox_ShortCountBackground;
 
+	std::vector<CString> IrradiationList;
 	std::vector<CString> AnalysisListboxDirectoryList;
 	std::vector<CString> NuclideLibListboxDirectoryList;
 	std::vector<CString> ElementLibListboxDirectoryList;
