@@ -9,6 +9,7 @@ namespace camType
 		data = 3000,
 		library_nuclide,
 		library_element,
+		library_element2,
 		report_template,
 		report,
 		analysis_sequence,

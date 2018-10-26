@@ -490,6 +490,12 @@ camType::FileSearchParams CpnaaDlg::ReturnFilenameFilteringParams(const camType:
 		filename_defaults.filter = genie_defaults::filter_elementlib;
 		break;
 
+	case camType::FileType::library_element2:
+		filename_defaults.directory = genie_defaults::directory_library;
+		filename_defaults.extension = genie_defaults::extension_nuclidelib;
+		filename_defaults.filter = genie_defaults::filter_elementlib;
+		break;
+
 	case camType::FileType::library_nuclide:
 		filename_defaults.directory = genie_defaults::directory_library;
 		filename_defaults.extension = genie_defaults::extension_nuclidelib;
@@ -537,13 +543,8 @@ std::vector<CString> CpnaaDlg::PopulateListboxDirectoryListing(CListBox& list_bo
 	// Receive the vector list of filenames
 	std::vector<CString> dir_listing{ ReturnFilteredFilename(param) };
 	
-	// Populate the UI listbox
-	list_box.ResetContent();
-	for (size_t i{ 0 }; i < dir_listing.size(); i++)
-	{
-		list_box.AddString(dir_listing.at(i));
-	}
-
+	// Update the UI
+	UpdateCListBoxContents(dir_listing, list_box);
 	return dir_listing;
 }
 
@@ -552,7 +553,7 @@ void CpnaaDlg::InitializeDirectoryLists()
 {
 	AnalysisListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_AnalysisFiles, camType::FileType::analysis_sequence);
 	NuclideLibListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_NulcideLibraries, camType::FileType::library_nuclide);
-	ElementLibListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_ElementLibraries, camType::FileType::library_element);
+	ElementLibListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_ElementLibraries, camType::FileType::library_element2);
 	DatafileListboxDirectoryList = PopulateListboxDirectoryListing(ListBox_DataFiles, camType::FileType::data);
 }
 
@@ -634,5 +635,60 @@ void CpnaaDlg::CreateComboBoxValues(CComboBox& combo_box, const camType::ComboTy
 		combo_box.AddString(_T("ppmb"));
 		combo_box.SetCurSel(2);
 		break;
+	}
+}
+
+
+void CpnaaDlg::RemoveVectorItem(std::vector<CString>& directory_listing, const int selected_item)
+{
+	int vector_size{ directory_listing.size() };
+	if ((selected_item >= 0) && (selected_item <= vector_size))
+		directory_listing.erase(directory_listing.begin() + selected_item);
+}
+
+
+void CpnaaDlg::RemoveAllVectorItems(std::vector<CString>& vector_data)
+{
+	std::vector<CString>().swap(vector_data);
+}
+
+
+void CpnaaDlg::UpdateCListBoxContents(const std::vector<CString>& vector_data, CListBox& list_box)
+{
+	list_box.ResetContent();
+	for (size_t i{ 0 }; i < vector_data.size(); i++)
+		list_box.AddString(vector_data.at(i));
+}
+
+
+void CpnaaDlg::AppendVectorItem(std::vector<CString>& vector_data, const CString& item)
+{
+	if (item.IsEmpty)
+	{
+		// problem here; should not allow empty CStrings!
+	}
+	else
+	{
+		vector_data.push_back(item);
+	}
+}
+
+
+void CpnaaDlg::InsertVectorItem(std::vector<CString>& vector_data, const CString& item, const int position)
+{
+	bool position_exceeds_vector_dimension{ (position > (vector_data.size() + 1)) ? true : false };
+	if (position_exceeds_vector_dimension)
+	{
+		// problem here; should not "insert" data in positions larger than the vector size
+	}
+	else if(item.IsEmpty)
+	{
+		// problem here; should not allow empty CString
+	}
+	else
+	{
+		// std::vector::insert put the inserted object before the selected position,
+		// so add one to put it after
+		vector_data.insert(vector_data.begin() + position + 1, item);
 	}
 }
