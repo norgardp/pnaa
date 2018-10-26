@@ -114,9 +114,9 @@ private:
 	void InitializeDirectoryLists();
 	void InitializeComboBoxValues();
 	void CreateComboBoxValues(CComboBox& combo_box, const camType::ComboType combo_type);
-	void RemoveVectorItem(std::vector<CString>& directory_listing, const int selected_item);
+	void RemoveVectorItem(std::vector<CString>& directory_listing, const size_t selected_item);
 	void RemoveAllVectorItems(std::vector<CString>& vector_data);
 	void UpdateCListBoxContents(const std::vector<CString>& vector_data, CListBox& list_box);
 	void AppendVectorItem(std::vector<CString>& vector_data, const CString& item);
-	void InsertVectorItem(std::vector<CString>& vector_data, const CString& item, const int position);
+	void InsertVectorItem(std::vector<CString>& vector_data, const CString& item, const size_t position);
 };

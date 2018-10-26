@@ -639,9 +639,9 @@ void CpnaaDlg::CreateComboBoxValues(CComboBox& combo_box, const camType::ComboTy
 }
 
 
-void CpnaaDlg::RemoveVectorItem(std::vector<CString>& directory_listing, const int selected_item)
+void CpnaaDlg::RemoveVectorItem(std::vector<CString>& directory_listing, const size_t selected_item)
 {
-	int vector_size{ directory_listing.size() };
+	size_t vector_size{ directory_listing.size() };
 	if ((selected_item >= 0) && (selected_item <= vector_size))
 		directory_listing.erase(directory_listing.begin() + selected_item);
 }
@@ -663,7 +663,7 @@ void CpnaaDlg::UpdateCListBoxContents(const std::vector<CString>& vector_data, C
 
 void CpnaaDlg::AppendVectorItem(std::vector<CString>& vector_data, const CString& item)
 {
-	if (item.IsEmpty)
+	if (item.IsEmpty())
 	{
 		// problem here; should not allow empty CStrings!
 	}
@@ -674,14 +674,14 @@ void CpnaaDlg::AppendVectorItem(std::vector<CString>& vector_data, const CString
 }
 
 
-void CpnaaDlg::InsertVectorItem(std::vector<CString>& vector_data, const CString& item, const int position)
+void CpnaaDlg::InsertVectorItem(std::vector<CString>& vector_data, const CString& item, const size_t position)
 {
 	bool position_exceeds_vector_dimension{ (position > (vector_data.size() + 1)) ? true : false };
 	if (position_exceeds_vector_dimension)
 	{
 		// problem here; should not "insert" data in positions larger than the vector size
 	}
-	else if(item.IsEmpty)
+	else if(item.IsEmpty())
 	{
 		// problem here; should not allow empty CString
 	}
