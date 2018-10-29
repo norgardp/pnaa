@@ -82,6 +82,9 @@ void CpnaaDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT_NEUTRONTHERMAL, EditBox_ThermalNeutronFlux);
 	DDX_Control(pDX, IDC_EDIT_SAMPLEMASS, EditBox_SampleMass);
 	DDX_Control(pDX, IDC_EDIT_SHORT_BACKGND, EditBox_ShortCountBackground);
+	//  DDX_Control(pDX, IDC_DATETIMEPICKER_STOPDATE, DateTime_IrradiationStopTime);
+	DDX_Control(pDX, IDC_DATETIMEPICKER_STOPDATE, DateTime_IrradiationStopDate);
+	DDX_Control(pDX, IDC_DATETIMEPICKER_STOPTIME, DateTime_IrradiationStopTime);
 }
 
 BEGIN_MESSAGE_MAP(CpnaaDlg, CDialogEx)

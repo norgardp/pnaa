@@ -86,9 +86,10 @@ private:
 	CComboBox ComboBox_SampleMaterial;
 	CComboBox ComboBox_SampleTreatment;
 	CComboBox ComboBox_ShortCountDetector;
-	CDateTimeCtrl DateTime_IrradiationDuration;
 	CDateTimeCtrl DateTime_IrradiationStartDate;
 	CDateTimeCtrl DateTime_IrradiationStartTime;
+	CDateTimeCtrl DateTime_IrradiationStopDate;
+	CDateTimeCtrl DateTime_IrradiationStopTime;
 	CEdit EditBox_Analyst;
 	CEdit EditBox_Customer;
 	CEdit EdtiBox_LongCountBackground;
