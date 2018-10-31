@@ -71,7 +71,6 @@ void CpnaaDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_COMBO_SAMPLEMATERIAL, ComboBox_SampleMaterial);
 	DDX_Control(pDX, IDC_COMBO_SAMPLETREATMENT, ComboBox_SampleTreatment);
 	DDX_Control(pDX, IDC_COMBO_SHORTDETECTOR, ComboBox_ShortCountDetector);
-	DDX_Control(pDX, IDC_DATETIMEPICKER_DURATION, DateTime_IrradiationDuration);
 	DDX_Control(pDX, IDC_DATETIMEPICKER_STARTDATE, DateTime_IrradiationStartDate);
 	DDX_Control(pDX, IDC_DATETIMEPICKER_STARTTIME, DateTime_IrradiationStartTime);
 	DDX_Control(pDX, IDC_EDIT_ANALYST, EditBox_Analyst);
@@ -160,6 +159,7 @@ BOOL CpnaaDlg::OnInitDialog()
 	// TODO: Add extra initialization here
 	InitializeDirectoryLists();
 	InitializeComboBoxValues();
+	InitializeDateTimePickers();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -362,7 +362,8 @@ void CpnaaDlg::OnBnClickedButtonLongbackgnd()
 
 void CpnaaDlg::OnBnClickedButtonAppendirrad()
 {
-	// TODO: Add your control notification handler code here
+	// THIS IS WHERE I STOPPED ON 29-OCT-2018
+	UpdateCListBoxContents(IrradiationList, ListBox_Irradiations);
 }
 
 
@@ -377,7 +378,6 @@ void CpnaaDlg::OnBnClickedButtonRemoveirrad()
 	int selected{ ListBox_Irradiations.GetCurSel() };
 	if (selected != LB_ERR)
 	{
-		// Do stuff
 		RemoveVectorItem(IrradiationList, selected);
 		UpdateCListBoxContents(IrradiationList, ListBox_Irradiations);
 	}
@@ -402,7 +402,6 @@ void CpnaaDlg::OnBnClickedButtonRemovedata()
 	int selected{ ListBox_DataFiles.GetCurSel() };
 	if (selected != LB_ERR)
 	{
-		// Do stuff
 		RemoveVectorItem(DatafileListboxDirectoryList, selected);
 		UpdateCListBoxContents(DatafileListboxDirectoryList, ListBox_DataFiles);
 	}
@@ -709,3 +708,99 @@ void CpnaaDlg::InsertVectorItem(std::vector<CString>& vector_data, const CString
 		vector_data.insert(vector_data.begin() + position + 1, item);
 	}
 }
+
+
+void CpnaaDlg::InitializeDateTimePickers()
+{
+	CTime default_time(1972, 1, 1, 0, 0, 0);
+	DateTime_IrradiationStartTime.SetFormat(genie_defaults::dtp_time_format);
+	DateTime_IrradiationStartTime.SetTime(&default_time);
+	DateTime_IrradiationStopTime.SetFormat(genie_defaults::dtp_time_format);
+	DateTime_IrradiationStopTime.SetTime(&default_time);
+}
+
+/*
+CString CpnaaDlg::ReturnSelectedDateTime(const CDateTimeCtrl& date_picker, const CDateTimeCtrl& time_picker)
+{
+	CString time_string;
+	time_string.Append(ReturnFormattedDateTimePickerValue(date_picker, camType::DateTimeMode::date));
+	time_string.Append(_T(" "));
+	time_string.Append(ReturnFormattedDateTimePickerValue(time_picker, camType::DateTimeMode::time));
+	return time_string;
+}
+
+
+CString CpnaaDlg::ReturnFormattedDateTimePickerValue(const CDateTimeCtrl& picker_ctrl, const camType::DateTimeMode mode)
+{
+	CString picker_string{ genie_defaults::empty_time_string };
+	CTime picker_value;
+	DWORD dwretval = picker_ctrl.GetTime(picker_value);
+	if (dwretval == GDT_VALID)
+	{
+		picker_string.Delete(0, picker_string.GetLength());
+		CString dependent_fmt;
+		switch (mode)
+		{
+		case camType::DateTimeMode::date:
+			dependent_fmt = genie_defaults::cdate_format;
+			break;
+
+		case camType::DateTimeMode::time:
+			dependent_fmt = genie_defaults::ctime_format;
+			break;
+		}
+		picker_string = picker_value.Format(dependent_fmt);
+	}
+	return picker_string;
+}
+
+*/
+
+CTime CpnaaDlg::ReturnCTimeObject(const CDateTimeCtrl& picker_control)
+{
+	CTime picker_value;
+	DWORD dwvalue = picker_control.GetTime(picker_value);
+	return (dwvalue != GDT_VALID) ? CTime() : picker_value;
+}
+
+
+CTime CpnaaDlg::ReturnCombinedCTimeObjects(const CTime& date, const CTime& time)
+{
+	SYSTEMTIME st;
+	st.wYear = date.GetYear();
+	st.wMonth = date.GetMonth();
+	st.wDay = date.GetDay();
+	st.wHour = time.GetHour();
+	st.wMinute = time.GetHour();
+	st.wSecond = time.GetSecond();
+	return CTime(st);
+}
+
+
+void CpnaaDlg::CreateIrradiation()
+{
+	CTime date, time, start, stop;
+	
+	// Get irradiation start
+	date = ReturnCTimeObject(DateTime_IrradiationStartDate);
+	time = ReturnCTimeObject(DateTime_IrradiationStartTime);
+	start = ReturnCombinedCTimeObjects(date, time);
+
+	// Get irradiation stop
+	date = ReturnCTimeObject(DateTime_IrradiationStopDate);
+	time = ReturnCTimeObject(DateTime_IrradiationStopTime);
+	stop = ReturnCombinedCTimeObjects(date, time);
+
+	Irradiations.push_back(ReturnIrradiationInstance(start, stop));
+}
+
+camType::Irradiation CpnaaDlg::ReturnIrradiationInstance(const CTime& start, const CTime& stop)
+{
+	camType::Irradiation irr;
+	irr.irradiation_start = start;
+	irr.irradiation_end = stop;
+	CTimeSpan ts = stop - start;
+	irr.irradiation_duration = ts.GetTotalSeconds();
+	return irr;
+}
+

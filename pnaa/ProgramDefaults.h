@@ -32,5 +32,10 @@ namespace genie_defaults
 	// Important constants
 	static constexpr size_t MAXIMUM_PATH = MAX_PATH;
 	static constexpr TCHAR* empty_tchar_string = _T('\0');
+	static constexpr TCHAR* empty_time_string = _T("no data supplied");
 
+	static constexpr TCHAR* dtp_time_format = _T("HH:MM:ss");
+
+	static constexpr TCHAR* ctime_format = _T("%H:%M:%S");
+	static constexpr TCHAR* cdate_format = _T("%m/%d/%Y");
 }

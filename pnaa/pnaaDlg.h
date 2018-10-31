@@ -99,6 +99,7 @@ private:
 	CEdit EditBox_SampleMass;
 	CEdit EditBox_ShortCountBackground;
 
+	std::vector<camType::Irradiation> Irradiations; 
 	std::vector<CString> IrradiationList;
 	std::vector<CString> AnalysisListboxDirectoryList;
 	std::vector<CString> NuclideLibListboxDirectoryList;
@@ -121,4 +122,12 @@ private:
 	void UpdateCListBoxContents(const std::vector<CString>& vector_data, CListBox& list_box);
 	void AppendVectorItem(std::vector<CString>& vector_data, const CString& item);
 	void InsertVectorItem(std::vector<CString>& vector_data, const CString& item, const size_t position);
+	void InitializeDateTimePickers();
+	//CString ReturnSelectedDateTime(const CDateTimeCtrl& date_picker, const CDateTimeCtrl& time_picker);
+	//CString ReturnFormattedDateTimePickerValue(const CDateTimeCtrl& picker_ctrl, const camType::DateTimeMode mode);
+	void CreateIrradiation(); 
+	CTime ReturnCTimeObject(const CDateTimeCtrl& picker_control);
+	CTime ReturnCombinedCTimeObjects(const CTime& date, const CTime& time);
+	camType::Irradiation ReturnIrradiationInstance(const CTime& start, const CTime& stop);
+	
 };

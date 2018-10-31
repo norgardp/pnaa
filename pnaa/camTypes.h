@@ -25,6 +25,20 @@ namespace camType
 	};
 
 
+	struct Irradiation
+	{
+		CTime irradiation_start;
+		CTime irradiation_end;
+		unsigned long int irradiation_duration;
+	};
+
+
+	struct DateTimePair
+	{
+		CDateTimeCtrl start_time;
+		CDateTimeCtrl stop_time;
+	};
+
 	enum class ComboType
 	{
 		mass_unit = 3100,
@@ -37,6 +51,11 @@ namespace camType
 		other
 	};
 
+	enum class DateTimeMode
+	{
+		date = 3200,
+		time
+	};
 
 	namespace SampleProperty
 	{
