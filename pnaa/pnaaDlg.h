@@ -92,12 +92,14 @@ private:
 	CDateTimeCtrl DateTime_IrradiationStopTime;
 	CEdit EditBox_Analyst;
 	CEdit EditBox_Customer;
-	CEdit EdtiBox_LongCountBackground;
+	CEdit EditBox_LongCountBackground;
 	CEdit EditBox_FastNeutronFlux;
 	CEdit EditBox_NeutronFluxRatio;
 	CEdit EditBox_ThermalNeutronFlux;
 	CEdit EditBox_SampleMass;
 	CEdit EditBox_ShortCountBackground;
+	CButton CButton_ShortBackgroundSelect;
+	CButton CButton_LongBackgroundSelect;
 
 	std::vector<camType::Irradiation> Irradiations; 
 	std::vector<CString> IrradiationList;
@@ -113,22 +115,25 @@ private:
 	std::vector<CString> ReturnVectorDirectoryFileListing(const camType::FileSearchParams params);
 	std::vector<CString> PopulateListboxDirectoryListing(CListBox& list_box, const camType::FileType param);
 	CString ReturnFilterSearchPathname(const camType::FileSearchParams search_param);
-
-	void InitializeDirectoryLists();
-	void InitializeComboBoxValues();
-	void CreateComboBoxValues(CComboBox& combo_box, const camType::ComboType combo_type);
 	void RemoveVectorItem(std::vector<CString>& directory_listing, const size_t selected_item);
 	void RemoveAllVectorItems(std::vector<CString>& vector_data);
 	void UpdateCListBoxContents(const std::vector<CString>& vector_data, CListBox& list_box);
 	void AppendVectorItem(std::vector<CString>& vector_data, const CString& item);
 	void InsertVectorItem(std::vector<CString>& vector_data, const CString& item, const size_t position);
+
+	void InitializeDirectoryLists();
+	void InitializeComboBoxValues();
 	void InitializeDateTimePickers();
-	//CString ReturnSelectedDateTime(const CDateTimeCtrl& date_picker, const CDateTimeCtrl& time_picker);
-	//CString ReturnFormattedDateTimePickerValue(const CDateTimeCtrl& picker_ctrl, const camType::DateTimeMode mode);
+	void InitializeCountProperties();
+	
+	void CreateComboBoxValues(CComboBox& combo_box, const camType::ComboType combo_type);
+	
 	camType::Irradiation CreateIrradiation(); 
 	CTime ReturnCTimeObject(const CDateTimeCtrl& picker_control);
 	CTime ReturnCombinedCTimeObjects(const CTime& date, const CTime& time);
 	camType::Irradiation ReturnIrradiationInstance(const CTime& start, const CTime& stop);
 	CString ReturnIrradiationVectorString(const camType::Irradiation vector_item);
-	void AppendIrradiationVectorString(const camType::Irradiation irrad_data);
+
+	void StateFlipFlop(CWnd& window);
+	
 };

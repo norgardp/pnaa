@@ -75,7 +75,7 @@ void CpnaaDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DATETIMEPICKER_STARTTIME, DateTime_IrradiationStartTime);
 	DDX_Control(pDX, IDC_EDIT_ANALYST, EditBox_Analyst);
 	DDX_Control(pDX, IDC_EDIT_CUSTOMER, EditBox_Customer);
-	DDX_Control(pDX, IDC_EDIT_LONG_BACKGND, EdtiBox_LongCountBackground);
+	DDX_Control(pDX, IDC_EDIT_LONG_BACKGND, EditBox_LongCountBackground);
 	DDX_Control(pDX, IDC_EDIT_NEUTRONFAST, EditBox_FastNeutronFlux);
 	DDX_Control(pDX, IDC_EDIT_NEUTRONRATIO, EditBox_NeutronFluxRatio);
 	DDX_Control(pDX, IDC_EDIT_NEUTRONTHERMAL, EditBox_ThermalNeutronFlux);
@@ -84,6 +84,8 @@ void CpnaaDlg::DoDataExchange(CDataExchange* pDX)
 	//  DDX_Control(pDX, IDC_DATETIMEPICKER_STOPDATE, DateTime_IrradiationStopTime);
 	DDX_Control(pDX, IDC_DATETIMEPICKER_STOPDATE, DateTime_IrradiationStopDate);
 	DDX_Control(pDX, IDC_DATETIMEPICKER_STOPTIME, DateTime_IrradiationStopTime);
+	DDX_Control(pDX, IDC_BUTTON_SHORTBACKGND, CButton_ShortBackgroundSelect);
+	DDX_Control(pDX, IDC_BUTTON_LONGBACKGND, CButton_LongBackgroundSelect);
 }
 
 BEGIN_MESSAGE_MAP(CpnaaDlg, CDialogEx)
@@ -160,6 +162,7 @@ BOOL CpnaaDlg::OnInitDialog()
 	InitializeDirectoryLists();
 	InitializeComboBoxValues();
 	InitializeDateTimePickers();
+	InitializeCountProperties();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -303,12 +306,23 @@ void CpnaaDlg::OnCbnEditchangeComboSampletreatment()
 void CpnaaDlg::OnCbnSelchangeComboCounttype()
 {
 	// TODO: Add your control notification handler code here
+	int selection{ ComboBox_CountType.GetCurSel() };
+	switch (selection)
+	{
+	case 0:
+		// no selection
+		break;
+
+	case 1:
+		StateFlipFlop(ComboBox_ShortCountDetector);
+	}
 }
 
 
 void CpnaaDlg::OnCbnEditchangeComboCounttype()
 {
 	// TODO: Add your control notification handler code here
+
 }
 
 
@@ -801,3 +815,21 @@ CString CpnaaDlg::ReturnIrradiationVectorString(const camType::Irradiation vecto
 	return out_string;
 }
 
+
+void CpnaaDlg::InitializeCountProperties()
+{
+	EditBox_ShortCountBackground.EnableWindow(FALSE);
+	ComboBox_ShortCountDetector.EnableWindow(FALSE);
+	CButton_ShortBackgroundSelect.EnableWindow(FALSE);
+
+	EditBox_LongCountBackground.EnableWindow(FALSE);
+	ComboBox_LongCountDetector.EnableWindow(FALSE);
+	CButton_LongBackgroundSelect.EnableWindow(FALSE);
+}
+
+
+void CpnaaDlg::StateFlipFlop(CWnd& window)
+{
+	BOOL current_state = window.IsWindowEnabled();
+	window.EnableWindow(!current_state);
+}
