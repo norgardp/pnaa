@@ -728,42 +728,6 @@ void CpnaaDlg::InitializeDateTimePickers()
 	DateTime_IrradiationStopTime.SetTime(&default_time);
 }
 
-/*
-CString CpnaaDlg::ReturnSelectedDateTime(const CDateTimeCtrl& date_picker, const CDateTimeCtrl& time_picker)
-{
-	CString time_string;
-	time_string.Append(ReturnFormattedDateTimePickerValue(date_picker, camType::DateTimeMode::date));
-	time_string.Append(_T(" "));
-	time_string.Append(ReturnFormattedDateTimePickerValue(time_picker, camType::DateTimeMode::time));
-	return time_string;
-}
-
-
-CString CpnaaDlg::ReturnFormattedDateTimePickerValue(const CDateTimeCtrl& picker_ctrl, const camType::DateTimeMode mode)
-{
-	CString picker_string{ genie_defaults::empty_time_string };
-	CTime picker_value;
-	DWORD dwretval = picker_ctrl.GetTime(picker_value);
-	if (dwretval == GDT_VALID)
-	{
-		picker_string.Delete(0, picker_string.GetLength());
-		CString dependent_fmt;
-		switch (mode)
-		{
-		case camType::DateTimeMode::date:
-			dependent_fmt = genie_defaults::cdate_format;
-			break;
-
-		case camType::DateTimeMode::time:
-			dependent_fmt = genie_defaults::ctime_format;
-			break;
-		}
-		picker_string = picker_value.Format(dependent_fmt);
-	}
-	return picker_string;
-}
-
-*/
 
 CTime CpnaaDlg::ReturnCTimeObject(const CDateTimeCtrl& picker_control)
 {
@@ -806,6 +770,7 @@ camType::Irradiation CpnaaDlg::CreateIrradiation()
 	Irradiations.push_back(irr);
 	return irr;
 }
+
 
 camType::Irradiation CpnaaDlg::ReturnIrradiationInstance(const CTime& start, const CTime& stop)
 {

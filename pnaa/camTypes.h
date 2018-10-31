@@ -29,7 +29,7 @@ namespace camType
 	{
 		CTime irradiation_start;
 		CTime irradiation_end;
-		unsigned long int irradiation_duration;
+		LONGLONG irradiation_duration;
 	};
 
 
