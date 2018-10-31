@@ -362,14 +362,23 @@ void CpnaaDlg::OnBnClickedButtonLongbackgnd()
 
 void CpnaaDlg::OnBnClickedButtonAppendirrad()
 {
-	// THIS IS WHERE I STOPPED ON 29-OCT-2018
+	camType::Irradiation irrad = CreateIrradiation();
+	CString irrad_string = ReturnIrradiationVectorString(irrad);
+	AppendVectorItem(IrradiationList, irrad_string);
 	UpdateCListBoxContents(IrradiationList, ListBox_Irradiations);
 }
 
 
 void CpnaaDlg::OnBnClickedButtonInsertirrad()
 {
-	// TODO: Add your control notification handler code here
+	int selected{ ListBox_Irradiations.GetCurSel() };
+	if (selected != LB_ERR)
+	{
+		camType::Irradiation irrad = CreateIrradiation();
+		CString irrad_string = ReturnIrradiationVectorString(irrad);
+		InsertVectorItem(IrradiationList, irrad_string, selected);
+		UpdateCListBoxContents(IrradiationList, ListBox_Irradiations);
+	}
 }
 
 
@@ -655,11 +664,11 @@ void CpnaaDlg::CreateComboBoxValues(CComboBox& combo_box, const camType::ComboTy
 }
 
 
-void CpnaaDlg::RemoveVectorItem(std::vector<CString>& directory_listing, const size_t selected_item)
+void CpnaaDlg::RemoveVectorItem(std::vector<CString>& vector_data, const size_t selected_item)
 {
-	size_t vector_size{ directory_listing.size() };
+	size_t vector_size{ vector_data.size() };
 	if ((selected_item >= 0) && (selected_item <= vector_size))
-		directory_listing.erase(directory_listing.begin() + selected_item);
+		vector_data.erase(vector_data.begin() + selected_item);
 }
 
 
@@ -777,10 +786,11 @@ CTime CpnaaDlg::ReturnCombinedCTimeObjects(const CTime& date, const CTime& time)
 }
 
 
-void CpnaaDlg::CreateIrradiation()
+camType::Irradiation CpnaaDlg::CreateIrradiation()
 {
 	CTime date, time, start, stop;
-	
+	camType::Irradiation irr;
+
 	// Get irradiation start
 	date = ReturnCTimeObject(DateTime_IrradiationStartDate);
 	time = ReturnCTimeObject(DateTime_IrradiationStartTime);
@@ -791,7 +801,10 @@ void CpnaaDlg::CreateIrradiation()
 	time = ReturnCTimeObject(DateTime_IrradiationStopTime);
 	stop = ReturnCombinedCTimeObjects(date, time);
 
-	Irradiations.push_back(ReturnIrradiationInstance(start, stop));
+	// Generate the irradiation
+	irr = ReturnIrradiationInstance(start, stop);
+	Irradiations.push_back(irr);
+	return irr;
 }
 
 camType::Irradiation CpnaaDlg::ReturnIrradiationInstance(const CTime& start, const CTime& stop)
@@ -802,5 +815,24 @@ camType::Irradiation CpnaaDlg::ReturnIrradiationInstance(const CTime& start, con
 	CTimeSpan ts = stop - start;
 	irr.irradiation_duration = ts.GetTotalSeconds();
 	return irr;
+}
+
+
+CString CpnaaDlg::ReturnIrradiationVectorString(const camType::Irradiation vector_item)
+{
+	CString out_string;
+	if (vector_item.irradiation_duration <= 0)
+	{
+		// error condition: start time happens after stop time
+		// generate an error
+		out_string.Append(genie_defaults::empty_time_string);
+	}
+	else
+	{
+		out_string.Append(vector_item.irradiation_start.Format(genie_defaults::combined_time_format));
+		out_string.Append(genie_defaults::empty_time_spacer);
+		out_string.Append(vector_item.irradiation_end.Format(genie_defaults::combined_time_format));
+	}
+	return out_string;
 }
 

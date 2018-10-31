@@ -125,9 +125,10 @@ private:
 	void InitializeDateTimePickers();
 	//CString ReturnSelectedDateTime(const CDateTimeCtrl& date_picker, const CDateTimeCtrl& time_picker);
 	//CString ReturnFormattedDateTimePickerValue(const CDateTimeCtrl& picker_ctrl, const camType::DateTimeMode mode);
-	void CreateIrradiation(); 
+	camType::Irradiation CreateIrradiation(); 
 	CTime ReturnCTimeObject(const CDateTimeCtrl& picker_control);
 	CTime ReturnCombinedCTimeObjects(const CTime& date, const CTime& time);
 	camType::Irradiation ReturnIrradiationInstance(const CTime& start, const CTime& stop);
-	
+	CString ReturnIrradiationVectorString(const camType::Irradiation vector_item);
+	void AppendIrradiationVectorString(const camType::Irradiation irrad_data);
 };
