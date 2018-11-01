@@ -833,10 +833,12 @@ CString CpnaaDlg::ReturnIrradiationVectorString(const camType::Irradiation vecto
 void CpnaaDlg::InitializeCountProperties()
 {
 	EditBox_ShortCountBackground.EnableWindow(FALSE);
+	EditBox_ShortCountBackground.SetCueBanner(genie_defaults::empty_background_string);
 	ComboBox_ShortCountDetector.EnableWindow(FALSE);
 	Button_ShortBackgroundSelect.EnableWindow(FALSE);
 
 	EditBox_LongCountBackground.EnableWindow(FALSE);
+	EditBox_LongCountBackground.SetCueBanner(genie_defaults::empty_background_string);
 	ComboBox_LongCountDetector.EnableWindow(FALSE);
 	Button_LongBackgroundSelect.EnableWindow(FALSE);
 }

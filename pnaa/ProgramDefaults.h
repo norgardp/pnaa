@@ -33,6 +33,7 @@ namespace genie_defaults
 	static constexpr size_t MAXIMUM_PATH = MAX_PATH;
 	static constexpr TCHAR* empty_tchar_string = _T('\0');
 	static constexpr TCHAR* empty_time_string = _T("no data supplied");
+	static constexpr TCHAR* empty_background_string = _T("no default background");
 	static constexpr TCHAR* empty_time_spacer = _T("   ");
 
 	static constexpr TCHAR* dtp_time_format = _T("HH:MM:ss");
