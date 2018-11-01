@@ -103,6 +103,8 @@ private:
 	std::vector<CString> NuclideLibListboxDirectoryList;
 	std::vector<CString> ElementLibListboxDirectoryList;
 	std::vector<CString> DatafileListboxDirectoryList;
+	CString CurrentDataDirectory;
+	CString PreviousDataDirectory;
 
 	// Generic handling function used to return a directory listing into a vector
 	// container; also populates the associated ListBoxes on the dialog.
@@ -122,6 +124,7 @@ private:
 	void InitializeComboBoxValues();
 	void InitializeDateTimePickers();
 	void InitializeCountProperties();
+	void InitializeWorkingDirectory();
 
 	void CreateComboBoxValues(CComboBox& combo_box, const camType::ComboType combo_type);
 
@@ -133,9 +136,16 @@ private:
 
 	void EnableCount(const camType::DetectorMode detector);
 	void DisableCount(const camType::DetectorMode detector);
+	//std::vector<CString> ReturnSelectedFiles(const camType::FileType file_type, const camType::FileSelectMode mode);
+	//
+	//
+	//bool IsUniqueVectorEntry(const std::vector<CString> string_vector, const CString test_string);
+	//
+	CString ReturnCurrentPathname();
+	std::vector<CString> RejectDuplicateVectorItems(const std::vector<CString>& data_vector, const std::vector<CString>& test_vector);
 	std::vector<CString> ReturnSelectedFiles(const camType::FileType file_type, const camType::FileSelectMode mode);
 	DWORD SetFileOpenDlgModeFlag(const camType::FileSelectMode custom_mode);
 	std::vector<CString> VectorizeFileSelections(const CFileDialog& file_dialog);
 	bool IsUniqueVectorEntry(const std::vector<CString> string_vector, const CString test_string);
-	TCHAR* ReturnFilePathName(const CFileDialog& file_dialog);
+	CString ReturnFilePathName(const CFileDialog& file_dialog);
 };

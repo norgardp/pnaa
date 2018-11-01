@@ -158,7 +158,7 @@ BOOL CpnaaDlg::OnInitDialog()
 	InitializeComboBoxValues();
 	InitializeDateTimePickers();
 	InitializeCountProperties();
-	::SetCurrentDirectory(genie_defaults::directory_data);
+	InitializeWorkingDirectory();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -402,9 +402,14 @@ void CpnaaDlg::OnBnClickedButtonRemoveallirrad()
 
 void CpnaaDlg::OnBnClickedButtonAdddata()
 {
-	RemoveAllVectorItems(DatafileListboxDirectoryList);
-	std::vector<CString> sel_files = ReturnSelectedFiles(camType::FileType::data, camType::FileSelectMode::multiple);
-	AppendVectorItem(DatafileListboxDirectoryList, sel_files);
+	std::vector<CString> list = ReturnSelectedFiles(camType::FileType::data, camType::FileSelectMode::multiple);
+	if (CurrentDataDirectory != PreviousDataDirectory)
+	{
+		RemoveAllVectorItems(DatafileListboxDirectoryList);
+		PreviousDataDirectory = CurrentDataDirectory;
+	}
+	list = RejectDuplicateVectorItems(DatafileListboxDirectoryList, list);
+	DatafileListboxDirectoryList.insert(std::end(DatafileListboxDirectoryList), std::begin(list), std::end(list));
 	UpdateCListBoxContents(DatafileListboxDirectoryList, ListBox_DataFiles);
 }
 
@@ -866,22 +871,46 @@ void CpnaaDlg::DisableCount(const camType::DetectorMode detector)
 }
 
 
+CString CpnaaDlg::ReturnCurrentPathname()
+{
+	TCHAR pathname[MAX_PATH];
+	::GetCurrentDirectory(MAX_PATH, pathname);
+	return CString(pathname);
+}
+
+
+std::vector<CString> CpnaaDlg::RejectDuplicateVectorItems(const std::vector<CString>& data_vector, const std::vector<CString>& test_vector)
+{
+	std::vector<CString> loc_data = data_vector;
+	std::vector<CString> loc_test = test_vector;
+	for (size_t i{ 0 }; i < loc_data.size(); i++)
+	{
+		for (size_t j{ 0 }; j < loc_test.size(); j++)
+		{
+			if (loc_data.at(i) == loc_test.at(j))
+			{
+				loc_test.erase(std::begin(loc_test) + j);
+				j--;
+			}
+		}
+	}
+	return loc_test;
+}
+
+
 std::vector<CString> CpnaaDlg::ReturnSelectedFiles(const camType::FileType file_type, const camType::FileSelectMode mode)
 {
 	DWORD mode_flag = SetFileOpenDlgModeFlag(mode);
 	camType::FileSearchParams filter_params = ReturnFilenameFilteringParams(file_type);
-	
-	TCHAR prev_dir[MAX_PATH];
-	::GetCurrentDirectory(MAX_PATH, prev_dir);
-	::SetCurrentDirectory(filter_params.directory);
 
 	CFileDialog dlg(TRUE, filter_params.extension, NULL,
 		mode_flag, filter_params.filter, NULL, 0, TRUE);
 	std::vector<CString> file_vector;
 	if (dlg.DoModal() == IDOK)
+	{
 		file_vector = VectorizeFileSelections(dlg);
-	else
-		::SetCurrentDirectory(prev_dir);
+		CurrentDataDirectory = ReturnFilePathName(dlg);
+	}
 	return file_vector;
 }
 
@@ -926,12 +955,19 @@ bool CpnaaDlg::IsUniqueVectorEntry(const std::vector<CString> string_vector, con
 }
 
 
-TCHAR* CpnaaDlg::ReturnFilePathName(const CFileDialog& file_dialog)
+CString CpnaaDlg::ReturnFilePathName(const CFileDialog& file_dialog)
 {
 	POSITION pos(file_dialog.GetStartPosition());
 	CString file_path, folder_path;
 	file_path = file_dialog.GetPathName();
 	folder_path = file_path.Left(file_path.GetLength() - file_dialog.GetFileName().GetLength());
-	TCHAR* path_minus_file = _tcsdup(folder_path);
-	return path_minus_file;
+	return folder_path;
+}
+
+
+void CpnaaDlg::InitializeWorkingDirectory()
+{
+	::SetCurrentDirectory(genie_defaults::directory_data);
+	CurrentDataDirectory = ReturnCurrentPathname();
+	PreviousDataDirectory = CurrentDataDirectory;
 }
