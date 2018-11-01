@@ -115,6 +115,7 @@ private:
 	void RemoveAllVectorItems(std::vector<CString>& vector_data);
 	void UpdateCListBoxContents(const std::vector<CString>& vector_data, CListBox& list_box);
 	void AppendVectorItem(std::vector<CString>& vector_data, const CString& item);
+	void AppendVectorItem(std::vector<CString>& vector_data, const std::vector<CString>& item);
 	void InsertVectorItem(std::vector<CString>& vector_data, const CString& item, const size_t position);
 
 	void InitializeDirectoryLists();
@@ -132,4 +133,9 @@ private:
 
 	void EnableCount(const camType::DetectorMode detector);
 	void DisableCount(const camType::DetectorMode detector);
+	std::vector<CString> ReturnSelectedFiles(const camType::FileType file_type, const camType::FileSelectMode mode);
+	DWORD SetFileOpenDlgModeFlag(const camType::FileSelectMode custom_mode);
+	std::vector<CString> VectorizeFileSelections(const CFileDialog& file_dialog);
+	bool IsUniqueVectorEntry(const std::vector<CString> string_vector, const CString test_string);
+	TCHAR* ReturnFilePathName(const CFileDialog& file_dialog);
 };

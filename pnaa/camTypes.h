@@ -17,6 +17,12 @@ namespace camType
 		other
 	};
 
+	enum class FileSelectMode
+	{
+		single = 3050,
+		multiple
+	};
+
 	struct FileSearchParams
 	{
 		TCHAR* directory;
