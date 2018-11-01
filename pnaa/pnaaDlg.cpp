@@ -106,13 +106,9 @@ BEGIN_MESSAGE_MAP(CpnaaDlg, CDialogEx)
 	ON_CBN_SELCHANGE(IDC_COMBO_SAMPLETREATMENT, &CpnaaDlg::OnCbnSelchangeComboSampletreatment)
 	ON_CBN_EDITCHANGE(IDC_COMBO_SAMPLETREATMENT, &CpnaaDlg::OnCbnEditchangeComboSampletreatment)
 	ON_CBN_SELCHANGE(IDC_COMBO_COUNTTYPE, &CpnaaDlg::OnCbnSelchangeComboCounttype)
-	ON_CBN_EDITCHANGE(IDC_COMBO_COUNTTYPE, &CpnaaDlg::OnCbnEditchangeComboCounttype)
 	ON_CBN_SELCHANGE(IDC_COMBO_SHORTDETECTOR, &CpnaaDlg::OnCbnSelchangeComboShortdetector)
-	ON_CBN_EDITCHANGE(IDC_COMBO_SHORTDETECTOR, &CpnaaDlg::OnCbnEditchangeComboShortdetector)
 	ON_CBN_SELCHANGE(IDC_COMBO_LONGDETECTOR, &CpnaaDlg::OnCbnSelchangeComboLongdetector)
-	ON_CBN_EDITCHANGE(IDC_COMBO_LONGDETECTOR, &CpnaaDlg::OnCbnEditchangeComboLongdetector)
 	ON_CBN_SELCHANGE(IDC_COMBO_REPORTUNITS, &CpnaaDlg::OnCbnSelchangeComboReportunits)
-	ON_CBN_EDITCHANGE(IDC_COMBO_REPORTUNITS, &CpnaaDlg::OnCbnEditchangeComboReportunits)
 	ON_BN_CLICKED(IDC_BUTTON_SHORTBACKGND, &CpnaaDlg::OnBnClickedButtonShortbackgnd)
 	ON_BN_CLICKED(IDC_BUTTON_LONGBACKGND, &CpnaaDlg::OnBnClickedButtonLongbackgnd)
 	ON_BN_CLICKED(IDC_BUTTON_APPENDIRRAD, &CpnaaDlg::OnBnClickedButtonAppendirrad)
@@ -330,13 +326,6 @@ void CpnaaDlg::OnCbnSelchangeComboCounttype()
 		EnableCount(camType::DetectorMode::long_cnt);
 		break;
 	}
-}
-
-
-void CpnaaDlg::OnCbnEditchangeComboCounttype()
-{
-	// TODO: Add your control notification handler code here
-
 }
 
 

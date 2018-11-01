@@ -53,13 +53,9 @@ protected:
 	afx_msg void OnCbnSelchangeComboSampletreatment();
 	afx_msg void OnCbnEditchangeComboSampletreatment();
 	afx_msg void OnCbnSelchangeComboCounttype();
-	afx_msg void OnCbnEditchangeComboCounttype();
 	afx_msg void OnCbnSelchangeComboShortdetector();
-	afx_msg void OnCbnEditchangeComboShortdetector();
 	afx_msg void OnCbnSelchangeComboLongdetector();
-	afx_msg void OnCbnEditchangeComboLongdetector();
 	afx_msg void OnCbnSelchangeComboReportunits();
-	afx_msg void OnCbnEditchangeComboReportunits();
 	afx_msg void OnBnClickedButtonShortbackgnd();
 	afx_msg void OnBnClickedButtonLongbackgnd();
 	afx_msg void OnBnClickedButtonAppendirrad();
