@@ -335,31 +335,13 @@ void CpnaaDlg::OnCbnSelchangeComboShortdetector()
 }
 
 
-void CpnaaDlg::OnCbnEditchangeComboShortdetector()
-{
-	// TODO: Add your control notification handler code here
-}
-
-
 void CpnaaDlg::OnCbnSelchangeComboLongdetector()
 {
 	// TODO: Add your control notification handler code here
 }
 
 
-void CpnaaDlg::OnCbnEditchangeComboLongdetector()
-{
-	// TODO: Add your control notification handler code here
-}
-
-
 void CpnaaDlg::OnCbnSelchangeComboReportunits()
-{
-	// TODO: Add your control notification handler code here
-}
-
-
-void CpnaaDlg::OnCbnEditchangeComboReportunits()
 {
 	// TODO: Add your control notification handler code here
 }
