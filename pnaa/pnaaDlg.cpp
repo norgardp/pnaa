@@ -350,13 +350,15 @@ void CpnaaDlg::OnCbnSelchangeComboReportunits()
 
 void CpnaaDlg::OnBnClickedButtonShortbackgnd()
 {
-	// TODO: Add your control notification handler code here
+	std::vector<CString> list = ReturnSelectedFiles(camType::FileType::background, camType::FileSelectMode::single);
+	EditBox_ShortCountBackground.SetWindowTextW(list.at(0));
 }
 
 
 void CpnaaDlg::OnBnClickedButtonLongbackgnd()
 {
-	// TODO: Add your control notification handler code here
+	std::vector<CString> list = ReturnSelectedFiles(camType::FileType::background, camType::FileSelectMode::single);
+	EditBox_LongCountBackground.SetWindowTextW(list.at(0));
 }
 
 
