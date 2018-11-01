@@ -57,6 +57,12 @@ namespace camType
 		time
 	};
 
+	enum class DetectorMode
+	{
+		short_cnt = 3300,
+		long_cnt
+	};
+
 	namespace SampleProperty
 	{
 		enum class MassUnit

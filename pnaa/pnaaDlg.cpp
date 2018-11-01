@@ -81,11 +81,10 @@ void CpnaaDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT_NEUTRONTHERMAL, EditBox_ThermalNeutronFlux);
 	DDX_Control(pDX, IDC_EDIT_SAMPLEMASS, EditBox_SampleMass);
 	DDX_Control(pDX, IDC_EDIT_SHORT_BACKGND, EditBox_ShortCountBackground);
-	//  DDX_Control(pDX, IDC_DATETIMEPICKER_STOPDATE, DateTime_IrradiationStopTime);
 	DDX_Control(pDX, IDC_DATETIMEPICKER_STOPDATE, DateTime_IrradiationStopDate);
 	DDX_Control(pDX, IDC_DATETIMEPICKER_STOPTIME, DateTime_IrradiationStopTime);
-	DDX_Control(pDX, IDC_BUTTON_SHORTBACKGND, CButton_ShortBackgroundSelect);
-	DDX_Control(pDX, IDC_BUTTON_LONGBACKGND, CButton_LongBackgroundSelect);
+	DDX_Control(pDX, IDC_BUTTON_SHORTBACKGND, Button_ShortBackgroundSelect);
+	DDX_Control(pDX, IDC_BUTTON_LONGBACKGND, Button_LongBackgroundSelect);
 }
 
 BEGIN_MESSAGE_MAP(CpnaaDlg, CDialogEx)
@@ -310,11 +309,26 @@ void CpnaaDlg::OnCbnSelchangeComboCounttype()
 	switch (selection)
 	{
 	case 0:
-		// no selection
+		// no selection, do nothing
 		break;
 
 	case 1:
-		StateFlipFlop(ComboBox_ShortCountDetector);
+		// Short count
+		EnableCount(camType::DetectorMode::short_cnt);
+		DisableCount(camType::DetectorMode::long_cnt);
+		break;
+
+	case 2:
+		// Long count
+		EnableCount(camType::DetectorMode::long_cnt);
+		DisableCount(camType::DetectorMode::short_cnt);
+		break;
+
+	case 3:
+		// Do both
+		EnableCount(camType::DetectorMode::short_cnt);
+		EnableCount(camType::DetectorMode::long_cnt);
+		break;
 	}
 }
 
@@ -820,16 +834,47 @@ void CpnaaDlg::InitializeCountProperties()
 {
 	EditBox_ShortCountBackground.EnableWindow(FALSE);
 	ComboBox_ShortCountDetector.EnableWindow(FALSE);
-	CButton_ShortBackgroundSelect.EnableWindow(FALSE);
+	Button_ShortBackgroundSelect.EnableWindow(FALSE);
 
 	EditBox_LongCountBackground.EnableWindow(FALSE);
 	ComboBox_LongCountDetector.EnableWindow(FALSE);
-	CButton_LongBackgroundSelect.EnableWindow(FALSE);
+	Button_LongBackgroundSelect.EnableWindow(FALSE);
 }
 
 
-void CpnaaDlg::StateFlipFlop(CWnd& window)
+void CpnaaDlg::EnableCount(const camType::DetectorMode detector)
 {
-	BOOL current_state = window.IsWindowEnabled();
-	window.EnableWindow(!current_state);
+	switch (detector)
+	{
+	case camType::DetectorMode::short_cnt:
+		ComboBox_ShortCountDetector.EnableWindow(TRUE);
+		Button_ShortBackgroundSelect.EnableWindow(TRUE);
+		EditBox_ShortCountBackground.EnableWindow(TRUE);
+		break;
+
+	case camType::DetectorMode::long_cnt:
+		ComboBox_LongCountDetector.EnableWindow(TRUE);
+		Button_LongBackgroundSelect.EnableWindow(TRUE);
+		EditBox_LongCountBackground.EnableWindow(TRUE);
+		break;
+	}
+}
+
+
+void CpnaaDlg::DisableCount(const camType::DetectorMode detector)
+{
+	switch (detector)
+	{
+	case camType::DetectorMode::short_cnt:
+		ComboBox_ShortCountDetector.EnableWindow(FALSE);
+		Button_ShortBackgroundSelect.EnableWindow(FALSE);
+		EditBox_ShortCountBackground.EnableWindow(FALSE);
+		break;
+
+	case camType::DetectorMode::long_cnt:
+		ComboBox_LongCountDetector.EnableWindow(FALSE);
+		Button_LongBackgroundSelect.EnableWindow(FALSE);
+		EditBox_LongCountBackground.EnableWindow(FALSE);
+		break;
+	}
 }

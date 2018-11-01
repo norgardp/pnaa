@@ -16,7 +16,7 @@
 // CpnaaDlg dialog
 class CpnaaDlg : public CDialogEx
 {
-// Construction
+	// Construction
 public:
 	CpnaaDlg(CWnd* pParent = NULL);	// standard constructor
 
@@ -25,7 +25,7 @@ public:
 	enum { IDD = IDD_PNAA_DIALOG };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 
 
@@ -98,10 +98,10 @@ private:
 	CEdit EditBox_ThermalNeutronFlux;
 	CEdit EditBox_SampleMass;
 	CEdit EditBox_ShortCountBackground;
-	CButton CButton_ShortBackgroundSelect;
-	CButton CButton_LongBackgroundSelect;
+	CButton Button_ShortBackgroundSelect;
+	CButton Button_LongBackgroundSelect;
 
-	std::vector<camType::Irradiation> Irradiations; 
+	std::vector<camType::Irradiation> Irradiations;
 	std::vector<CString> IrradiationList;
 	std::vector<CString> AnalysisListboxDirectoryList;
 	std::vector<CString> NuclideLibListboxDirectoryList;
@@ -125,15 +125,15 @@ private:
 	void InitializeComboBoxValues();
 	void InitializeDateTimePickers();
 	void InitializeCountProperties();
-	
+
 	void CreateComboBoxValues(CComboBox& combo_box, const camType::ComboType combo_type);
-	
-	camType::Irradiation CreateIrradiation(); 
+
+	camType::Irradiation CreateIrradiation();
 	CTime ReturnCTimeObject(const CDateTimeCtrl& picker_control);
 	CTime ReturnCombinedCTimeObjects(const CTime& date, const CTime& time);
 	camType::Irradiation ReturnIrradiationInstance(const CTime& start, const CTime& stop);
 	CString ReturnIrradiationVectorString(const camType::Irradiation vector_item);
 
-	void StateFlipFlop(CWnd& window);
-	
+	void EnableCount(const camType::DetectorMode detector);
+	void DisableCount(const camType::DetectorMode detector);
 };
