@@ -103,6 +103,8 @@ BEGIN_MESSAGE_MAP(CpnaaDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_REMOVEDATA, &CpnaaDlg::OnBnClickedButtonRemovedata)
 	ON_BN_CLICKED(IDC_BUTTON_REMOVEALLDATA, &CpnaaDlg::OnBnClickedButtonRemovealldata)
 	ON_BN_CLICKED(IDC_BUTTON_ANALYZE, &CpnaaDlg::OnBnClickedButtonAnalyze)
+	ON_CBN_KILLFOCUS(IDC_COMBO_SAMPLEFORM, &CpnaaDlg::OnCbnKillfocusComboSampleform)
+	ON_CBN_KILLFOCUS(IDC_COMBO_SAMPLETREATMENT, &CpnaaDlg::OnCbnKillfocusComboSampletreatment)
 END_MESSAGE_MAP()
 
 
@@ -230,13 +232,19 @@ void CpnaaDlg::OnCbnSelchangeComboCounttype()
 
 void CpnaaDlg::OnCbnKillfocusComboSamplematerial()
 {
-	CString window_text;
-	ComboBox_SampleMaterial.GetWindowTextW(window_text);
-	int res = ComboBox_SampleMaterial.FindStringExact(-1, window_text);
-	if (res == CB_ERR)
-	{
-		ComboBox_SampleMaterial.AddString(window_text);
-	}
+	AddToCComboBox(ComboBox_SampleMaterial);
+}
+
+
+void CpnaaDlg::OnCbnKillfocusComboSampleform()
+{
+	AddToCComboBox(ComboBox_SampleForm);
+}
+
+
+void CpnaaDlg::OnCbnKillfocusComboSampletreatment()
+{
+	AddToCComboBox(ComboBox_SampleTreatment);
 }
 
 
@@ -866,6 +874,18 @@ void CpnaaDlg::InitializeWorkingDirectory()
 	::SetCurrentDirectory(genie_defaults::directory_data);
 	CurrentDataDirectory = ReturnCurrentPathname();
 	PreviousDataDirectory = CurrentDataDirectory;
+}
+
+
+void CpnaaDlg::AddToCComboBox(CComboBox& combo_box)
+{
+	CString window_text;
+	combo_box.GetWindowTextW(window_text);
+	int res = combo_box.FindStringExact(-1, window_text);
+	if (res == CB_ERR)
+	{
+		combo_box.AddString(window_text);
+	}
 }
 
 

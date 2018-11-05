@@ -40,6 +40,9 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnCbnEditchangeComboSamplematerial();
 	afx_msg void OnCbnEditchangeComboSampleform();
+	afx_msg void OnCbnKillfocusComboSamplematerial();
+	afx_msg void OnCbnKillfocusComboSampleform();
+	afx_msg void OnCbnKillfocusComboSampletreatment();
 	afx_msg void OnCbnSelchangeComboCounttype();
 	afx_msg void OnBnClickedButtonShortbackgnd();
 	afx_msg void OnBnClickedButtonLongbackgnd();
@@ -121,11 +124,6 @@ private:
 
 	void EnableCount(const camType::DetectorMode detector);
 	void DisableCount(const camType::DetectorMode detector);
-	//std::vector<CString> ReturnSelectedFiles(const camType::FileType file_type, const camType::FileSelectMode mode);
-	//
-	//
-	//bool IsUniqueVectorEntry(const std::vector<CString> string_vector, const CString test_string);
-	//
 	CString ReturnCurrentPathname();
 	std::vector<CString> RejectDuplicateVectorItems(const std::vector<CString>& data_vector, const std::vector<CString>& test_vector);
 	std::vector<CString> ReturnSelectedFiles(const camType::FileType file_type, const camType::FileSelectMode mode);
@@ -133,6 +131,5 @@ private:
 	std::vector<CString> VectorizeFileSelections(const CFileDialog& file_dialog);
 	bool IsUniqueVectorEntry(const std::vector<CString> string_vector, const CString test_string);
 	CString ReturnFilePathName(const CFileDialog& file_dialog);
-public:
-	afx_msg void OnCbnKillfocusComboSamplematerial();
+	void AddToCComboBox(CComboBox& combo_box);	
 };
