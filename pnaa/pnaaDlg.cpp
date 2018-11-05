@@ -91,24 +91,8 @@ BEGIN_MESSAGE_MAP(CpnaaDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
-//	ON_EN_KILLFOCUS(IDC_EDIT_ANALYST, &CpnaaDlg::OnEnKillfocusEditAnalyst)
-//	ON_EN_KILLFOCUS(IDC_EDIT_CUSTOMER, &CpnaaDlg::OnEnKillfocusEditCustomer)
-//	ON_EN_KILLFOCUS(IDC_EDIT_SAMPLEMASS, &CpnaaDlg::OnEnKillfocusEditSamplemass)
-//	ON_EN_KILLFOCUS(IDC_EDIT_NEUTRONTHERMAL, &CpnaaDlg::OnEnKillfocusEditNeutronthermal)
-//	ON_EN_KILLFOCUS(IDC_EDIT_NEUTRONRATIO, &CpnaaDlg::OnEnKillfocusEditNeutronratio)
-//	ON_EN_KILLFOCUS(IDC_EDIT_NEUTRONFAST, &CpnaaDlg::OnEnKillfocusEditNeutronfast)
-//	ON_CBN_SELCHANGE(IDC_COMBO_MASSUNIT, &CpnaaDlg::OnCbnSelchangeComboMassunit)
-//	ON_CBN_EDITCHANGE(IDC_COMBO_MASSUNIT, &CpnaaDlg::OnCbnEditchangeComboMassunit)
-//	ON_CBN_SELCHANGE(IDC_COMBO_SAMPLEMATERIAL, &CpnaaDlg::OnCbnSelchangeComboSamplematerial)
-	ON_CBN_EDITCHANGE(IDC_COMBO_SAMPLEMATERIAL, &CpnaaDlg::OnCbnEditchangeComboSamplematerial)
-//	ON_CBN_SELCHANGE(IDC_COMBO_SAMPLEFORM, &CpnaaDlg::OnCbnSelchangeComboSampleform)
-//	ON_CBN_EDITCHANGE(IDC_COMBO_SAMPLEFORM, &CpnaaDlg::OnCbnEditchangeComboSampleform)
-//	ON_CBN_SELCHANGE(IDC_COMBO_SAMPLETREATMENT, &CpnaaDlg::OnCbnSelchangeComboSampletreatment)
-//	ON_CBN_EDITCHANGE(IDC_COMBO_SAMPLETREATMENT, &CpnaaDlg::OnCbnEditchangeComboSampletreatment)
+	ON_CBN_KILLFOCUS(IDC_COMBO_SAMPLEMATERIAL, &CpnaaDlg::OnCbnKillfocusComboSamplematerial)
 	ON_CBN_SELCHANGE(IDC_COMBO_COUNTTYPE, &CpnaaDlg::OnCbnSelchangeComboCounttype)
-//	ON_CBN_SELCHANGE(IDC_COMBO_SHORTDETECTOR, &CpnaaDlg::OnCbnSelchangeComboShortdetector)
-//	ON_CBN_SELCHANGE(IDC_COMBO_LONGDETECTOR, &CpnaaDlg::OnCbnSelchangeComboLongdetector)
-//	ON_CBN_SELCHANGE(IDC_COMBO_REPORTUNITS, &CpnaaDlg::OnCbnSelchangeComboReportunits)
 	ON_BN_CLICKED(IDC_BUTTON_SHORTBACKGND, &CpnaaDlg::OnBnClickedButtonShortbackgnd)
 	ON_BN_CLICKED(IDC_BUTTON_LONGBACKGND, &CpnaaDlg::OnBnClickedButtonLongbackgnd)
 	ON_BN_CLICKED(IDC_BUTTON_APPENDIRRAD, &CpnaaDlg::OnBnClickedButtonAppendirrad)
@@ -240,6 +224,18 @@ void CpnaaDlg::OnCbnSelchangeComboCounttype()
 		EnableCount(camType::DetectorMode::short_cnt);
 		EnableCount(camType::DetectorMode::long_cnt);
 		break;
+	}
+}
+
+
+void CpnaaDlg::OnCbnKillfocusComboSamplematerial()
+{
+	CString window_text;
+	ComboBox_SampleMaterial.GetWindowTextW(window_text);
+	int res = ComboBox_SampleMaterial.FindStringExact(-1, window_text);
+	if (res == CB_ERR)
+	{
+		ComboBox_SampleMaterial.AddString(window_text);
 	}
 }
 
@@ -871,3 +867,5 @@ void CpnaaDlg::InitializeWorkingDirectory()
 	CurrentDataDirectory = ReturnCurrentPathname();
 	PreviousDataDirectory = CurrentDataDirectory;
 }
+
+
