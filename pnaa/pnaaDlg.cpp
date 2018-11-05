@@ -351,14 +351,16 @@ void CpnaaDlg::OnCbnSelchangeComboReportunits()
 void CpnaaDlg::OnBnClickedButtonShortbackgnd()
 {
 	std::vector<CString> list = ReturnSelectedFiles(camType::FileType::background, camType::FileSelectMode::single);
-	EditBox_ShortCountBackground.SetWindowTextW(list.at(0));
+	if(list.size()!= 0)
+		EditBox_ShortCountBackground.SetWindowTextW(list.at(0));
 }
 
 
 void CpnaaDlg::OnBnClickedButtonLongbackgnd()
 {
 	std::vector<CString> list = ReturnSelectedFiles(camType::FileType::background, camType::FileSelectMode::single);
-	EditBox_LongCountBackground.SetWindowTextW(list.at(0));
+	if (list.size() != 0)
+		EditBox_LongCountBackground.SetWindowTextW(list.at(0));	
 }
 
 
