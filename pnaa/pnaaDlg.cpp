@@ -889,3 +889,36 @@ void CpnaaDlg::AddToCComboBox(CComboBox& combo_box)
 }
 
 
+bool CpnaaDlg::GetCurrentDialogState()
+{
+	std::vector<bool> result;
+	result.push_back(ReadDialog_Edit(EditBox_Analyst));
+	result.push_back(ReadDialog_Edit(EditBox_Customer));
+	result.push_back(ReadDialog_Edit(EditBox_SampleMass));
+	 // STOPPED HERE: 5 Nov 2018
+	//  Need to come up with a way to determine which type of count is selected
+	return false;
+}
+
+
+bool CpnaaDlg::ReadDialog_Edit(const CEdit& edit_box)
+{
+	CString item;
+	edit_box.GetWindowTextW(item);
+	return (item.IsEmpty()) ? false : true;
+}
+
+
+bool CpnaaDlg::ReadDialog_ComboBox(const CComboBox& combo_item)
+{
+	CString item;
+	combo_item.GetWindowTextW(item);
+	return (item == _T("unspecified")) ? false : true;
+}
+
+
+bool CpnaaDlg::ReadDialog_ListBox(const CListBox& list_item)
+{
+	int count = list_item.GetCount();
+	return (count == 0 || count == LB_ERR) ? false : true;
+}

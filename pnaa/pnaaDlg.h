@@ -132,4 +132,8 @@ private:
 	bool IsUniqueVectorEntry(const std::vector<CString> string_vector, const CString test_string);
 	CString ReturnFilePathName(const CFileDialog& file_dialog);
 	void AddToCComboBox(CComboBox& combo_box);	
+	bool GetCurrentDialogState();
+	bool ReadDialog_Edit(const CEdit& edit_box);
+	bool ReadDialog_ComboBox(const CComboBox& combo_item);
+	bool ReadDialog_ListBox(const CListBox& list_item);
 };
